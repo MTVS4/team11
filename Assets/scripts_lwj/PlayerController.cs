@@ -5,6 +5,8 @@ using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
+    public bool ismoved;
+    public Animator shooter;
     public float power = 1f;
     public float yAngle = 0f;
     private Rigidbody rigidbody;
@@ -14,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        
     }
 
     private void Update()
@@ -42,8 +45,30 @@ public class PlayerController : MonoBehaviour
             yAngle = 180f;
         }
 
-        transform.rotation = Quaternion.Euler(0f, yAngle, 0f);
-        
+        //transform.rotation = Quaternion.Euler(0f, yAngle, 0f);
+        if (Mathf.Approximately(h, 0f) && Mathf.Approximately(v, 0f))
+        {
+            ismoved = false;
+        }
+        else
+        {
+            ismoved = true;
+        }
+
+        shooter.SetBool("IsMoved",ismoved);
+
+        if (!ismoved)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                shooter.SetBool("IsShootted",true);
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                shooter.SetBool("IsShootted",false);
+            }
+        }
+
         //이걸 force로 변환 할까?
         rigidbody.position += power * Time.deltaTime * dir;
         //
