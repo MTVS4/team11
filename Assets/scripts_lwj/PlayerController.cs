@@ -10,12 +10,14 @@ public class PlayerController : MonoBehaviour
     public float power = 1f;
     public float yAngle = 0f;
     private Rigidbody rigidbody;
+    public GameObject sage;
 
     private Vector3 _lastPoint;
     
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        sage = GameObject.Find("Sa");
         
     }
 
@@ -44,8 +46,7 @@ public class PlayerController : MonoBehaviour
         {
             yAngle = 180f;
         }
-
-        //transform.rotation = Quaternion.Euler(0f, yAngle, 0f);
+        
         if (Mathf.Approximately(h, 0f) && Mathf.Approximately(v, 0f))
         {
             ismoved = false;
@@ -69,10 +70,14 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+        var rotation = sage.transform.rotation;
+        rotation.y = Camera.main.transform.rotation.y;
+        sage.transform.rotation = rotation;
+
         //이걸 force로 변환 할까?
         rigidbody.position += power * Time.deltaTime * dir;
         //
-        float jumpForce = 1f;
+        float jumpForce = 3f;
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Input.GetKeyDown(KeyCode.Space) : Space is Pressed");
