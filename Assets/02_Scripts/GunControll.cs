@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GunControll : MonoBehaviour
 {
+    public float bullletdistance = 1000f;
     public GameObject bullet;
     public Vector3 CrossHairposition;
     public Camera maincam;
@@ -34,7 +35,13 @@ public class GunControll : MonoBehaviour
         var bulletRigidbody = newBullet.GetComponent<Rigidbody>();
         Vector3 screancenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         Ray ray = maincam.ScreenPointToRay(screancenter);
-        
-        bulletRigidbody.AddForce(ray.direction, ForceMode.Impulse);
+        var speed = 100;
+        bulletRigidbody.AddForce(ray.direction * speed, ForceMode.Impulse);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, bullletdistance, LayerMask.GetMask("Enemy")))
+        {
+            Destroy(hit.transform.gameObject);
+        }
     }
+    
 }
