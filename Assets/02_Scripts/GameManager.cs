@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        SceneManager.LoadSceneAsync("UI Scene", LoadSceneMode.Additive);
     }
 
     void setPC()
@@ -32,6 +34,7 @@ public class GameManager : MonoBehaviour
         GameDataManager.Instance.SetCurrentRound(StageID);
         GameDataManager.Instance.SetRoundData(MyPlayer, PlayerSpawnPoint, SkillObjectParent, ItemObjectParent);
         //setPC();
+        
     }
 
     void OnDestroy()
