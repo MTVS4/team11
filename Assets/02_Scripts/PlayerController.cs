@@ -1,32 +1,47 @@
 using System.Net;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
     public bool ismoved;
+    public bool isShootting = false;
     public Animator shooter;
     public float power = 1f;
     public float yAngle = 0f;
-    private Rigidbody myrigidbody;
-    public GameObject sage;
+    private CharacterController bodyCharacterController;
+    public GameObject body;
     private Vector3 _lastPoint;
+    private float moveSpeed = 10f;
+    private Rigidbody myRigidbody;
     
     private void Awake()
     {
-        myrigidbody = GetComponent<Rigidbody>();
-        sage = GameObject.Find("Sa");
+        bodyCharacterController = GetComponentInChildren<CharacterController>();
+        myRigidbody = GetComponent<Rigidbody>();
+        body = GameObject.Find("body");
         
+    }
+
+    private void Jump()
+    {
+        float jumpForce = 3f;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log("Input.GetKeyDown(KeyCode.Space) : Space is Pressed");
+            var up = Vector3.up;
+            myRigidbody.AddForce(up * jumpForce, ForceMode.Impulse);
+        }
     }
 
     private void Update()
     {
         var h = Input.GetAxisRaw("Horizontal");
         var v = Input.GetAxisRaw("Vertical");
-        var dir = new Vector3(h, 0f, v).normalized;
+        //var dir = new Vector3(h, 0f, v).normalized;
         
-        // 오른쪽 : 90 // 왼쪽 : -90
         if (Mathf.Approximately(h, 0f))
         {
         }
@@ -49,39 +64,54 @@ public class PlayerController : MonoBehaviour
         if (Mathf.Approximately(h, 0f) && Mathf.Approximately(v, 0f))
         {
             ismoved = false;
+            shooter.SetBool("IsMoved",ismoved);
         }
         else
         {
             ismoved = true;
+            shooter.SetBool("IsMoved",ismoved);
         }
-
-        shooter.SetBool("IsMoved",ismoved);
 
         if (!ismoved)
         {
             if (Input.GetMouseButtonDown(0))
             {
-                shooter.SetBool("IsShootted",true);
+                isShootting = true;
+                shooter.SetBool("IsShootted", isShootting);
             }
             else if (Input.GetMouseButtonUp(0))
             {
-                shooter.SetBool("IsShootted",false);
+                isShootting = false;
+                shooter.SetBool("IsShootted", isShootting);
             }
         }
-
-        var rotation = sage.transform.rotation;
+        var rotation = body.transform.rotation;
         rotation.y = Camera.main.transform.rotation.y;
-        sage.transform.rotation = rotation;
+        body.transform.rotation = rotation;
+        
+        //var forwardDirection = Vector3.ProjectOnPlane(body.transform.forward, Vector3.up);
 
-        //이걸 force로 변환 할까?
-        myrigidbody.position += power * Time.deltaTime * dir;
-        //
-        float jumpForce = 3f;
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.W))
         {
-            Debug.Log("Input.GetKeyDown(KeyCode.Space) : Space is Pressed");
-            var up = Vector3.up;
-            myrigidbody.AddForce(up * jumpForce , ForceMode.Impulse);
+            body.transform.position += power * Time.deltaTime * body.transform.forward;
         }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            body.transform.position -= power * Time.deltaTime * body.transform.forward;
+        }
+
+        if (Input.GetKey(KeyCode.A))
+        {
+            body.transform.position -= power * Time.deltaTime * body.transform.right;
+        }
+
+        if (Input.GetKey(KeyCode.D))
+        {
+            body.transform.position += power * Time.deltaTime * body.transform.right;  
+        }
+        
+        Jump();
+
     }
 }

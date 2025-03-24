@@ -4,7 +4,9 @@ public class GameManager : MonoBehaviour
 {
     //싱글톤 전역 변수
     public static GameManager Instance;
-
+    
+    private PcSetting _setting;
+    
     public int StageID = 1;
     public GameObject MyPlayer;
     public Transform PlayerSpawnPoint;
@@ -14,8 +16,13 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        setPC();
     }
 
+    void setPC()
+    {
+        Application.targetFrameRate = _setting.fixedFrameRate;
+    }
     void Start()
     {
         GamePoolManager.Instance.Init();
@@ -40,7 +47,6 @@ public class GameManager : MonoBehaviour
     {
         FSMStateController.Instance.SetFSMCurrentState(EFSMStateType.Progress);
         FSMStateController.Instance.StartGame();
-        
     }
     
     void Update()
