@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
-        setPC();
     }
 
     void setPC()
@@ -32,6 +31,7 @@ public class GameManager : MonoBehaviour
         GameDataManager.Instance.Init();
         GameDataManager.Instance.SetCurrentRound(StageID);
         GameDataManager.Instance.SetRoundData(MyPlayer, PlayerSpawnPoint, SkillObjectParent, ItemObjectParent);
+        //setPC();
     }
 
     void OnDestroy()

@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private CharacterController bodyCharacterController;
     public GameObject body;
     private Vector3 _lastPoint;
-    private float moveSpeed = 10f;
+    private float moveSpeed = 4f;
     private Rigidbody myRigidbody;
     
     private void Awake()
@@ -93,22 +93,22 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W))
         {
-            body.transform.position += power * Time.deltaTime * body.transform.forward;
+            body.transform.position += moveSpeed * Time.deltaTime * body.transform.forward;
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            body.transform.position -= power * Time.deltaTime * body.transform.forward;
+            body.transform.position -= moveSpeed * Time.deltaTime * body.transform.forward;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            body.transform.position -= power * Time.deltaTime * body.transform.right;
+            body.transform.position -= moveSpeed * Time.deltaTime * body.transform.right;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            body.transform.position += power * Time.deltaTime * body.transform.right;  
+            body.transform.position += moveSpeed * Time.deltaTime * body.transform.right;  
         }
         
         Jump();
