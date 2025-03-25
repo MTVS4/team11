@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _lastPoint;
     private float moveSpeed = 4f;
     private Rigidbody myRigidbody;
-    
+    private bool isGrounded;
     private void Awake()
     {
         bodyCharacterController = GetComponentInChildren<CharacterController>();
@@ -26,15 +26,46 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        float jumpForce = 3f;
-        if (Input.GetKeyDown(KeyCode.Space))
+        float jumpForce = 30f;
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Debug.Log("Input.GetKeyDown(KeyCode.Space) : Space is Pressed");
-            var up = Vector3.up;
-            myRigidbody.AddForce(up * jumpForce, ForceMode.Impulse);
+            myRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            
+        }
+    }
+    void OnCollisionStay(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("Collision with ground");
+            isGrounded = true;
+        }
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("Collision with wall");
+            // 벽과 접촉 중일 때 damping을 무한대로 설정
+            myRigidbody.linearDamping = float.PositiveInfinity;
+            myRigidbody.angularDamping = float.PositiveInfinity;
         }
     }
 
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("Collision Wall Exit");
+            // 벽에서 떨어지면 damping을 원래 값으로 복원
+            myRigidbody.linearDamping = 1f;  // 기본값이나 원하는 값으로 설정
+            myRigidbody.angularDamping = 0.5f;  // 기본값이나 원하는 값으로 설정   
+        }
+
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            Debug.Log("Collision Ground Exit");
+            isGrounded = false;
+        }
+    }
     private void Update()
     {
         var h = Input.GetAxisRaw("Horizontal");
@@ -111,6 +142,8 @@ public class PlayerController : MonoBehaviour
         }
         
         Jump();
+        
+        
 
     }
 }
