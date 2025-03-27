@@ -7,30 +7,31 @@ public class PlayerController : MonoBehaviour
 {
     public bool ismoved;
     public bool isShootting = false;
-    public Animator shooter;
-    public float power = 1f;
-    public float yAngle = 0f;
+    
+    [SerializeField] private Animator shooter;
+    [SerializeField] private GameObject playerBody;
+    
+    private const float MoveSpeed = 4f;
+    private const float JumpForce = 30f;
     private CharacterController bodyCharacterController;
-    public GameObject body;
     private Vector3 _lastPoint;
-    private float moveSpeed = 4f;
     private Rigidbody myRigidbody;
     private bool isGrounded;
+
     private void Awake()
     {
         bodyCharacterController = GetComponentInChildren<CharacterController>();
         myRigidbody = GetComponent<Rigidbody>();
-        body = GameObject.Find("body");
+        playerBody = GameObject.Find("body");
         
     }
 
     private void Jump()
     {
-        float jumpForce = 30f;
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Debug.Log("Input.GetKeyDown(KeyCode.Space) : Space is Pressed");
-            myRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            myRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
             
         }
     }
@@ -71,26 +72,6 @@ public class PlayerController : MonoBehaviour
         var h = Input.GetAxisRaw("Horizontal");
         var v = Input.GetAxisRaw("Vertical");
         //var dir = new Vector3(h, 0f, v).normalized;
-        
-        if (Mathf.Approximately(h, 0f))
-        {
-        }
-        else
-        {
-            yAngle = 90f * h;
-        }
-        // 1~-1 이 360 ~ 180
-        // 앞 : 0
-        if (v > 0f)
-        {
-            yAngle = 0f;
-        }
-        // 뒤 : 180
-        if (v < 0f)
-        {
-            yAngle = 180f;
-        }
-        
         if (Mathf.Approximately(h, 0f) && Mathf.Approximately(v, 0f))
         {
             ismoved = false;
@@ -115,30 +96,30 @@ public class PlayerController : MonoBehaviour
                 shooter.SetBool("IsShootted", isShootting);
             }
         }
-        var rotation = body.transform.rotation;
+        var rotation = playerBody.transform.rotation;
         rotation.y = Camera.main.transform.rotation.y;
-        body.transform.rotation = rotation;
+        playerBody.transform.rotation = rotation;
         
         //var forwardDirection = Vector3.ProjectOnPlane(body.transform.forward, Vector3.up);
 
         if (Input.GetKey(KeyCode.W))
         {
-            body.transform.position += moveSpeed * Time.deltaTime * body.transform.forward;
+            playerBody.transform.position += MoveSpeed * Time.deltaTime * playerBody.transform.forward;
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            body.transform.position -= moveSpeed * Time.deltaTime * body.transform.forward;
+            playerBody.transform.position -= MoveSpeed * Time.deltaTime * playerBody.transform.forward;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            body.transform.position -= moveSpeed * Time.deltaTime * body.transform.right;
+            playerBody.transform.position -= MoveSpeed * Time.deltaTime * playerBody.transform.right;
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            body.transform.position += moveSpeed * Time.deltaTime * body.transform.right;  
+            playerBody.transform.position += MoveSpeed * Time.deltaTime * playerBody.transform.right;  
         }
         
         Jump();

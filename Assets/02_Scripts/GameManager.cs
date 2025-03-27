@@ -6,8 +6,10 @@ public class GameManager : MonoBehaviour
 {
     //싱글톤 전역 변수
     public static GameManager Instance { get; set; }
+    
+    public GameObject player1;
     public int StageID { get; set;} = 1;
-    public GameObject MyPlayer { get; set; }
+    
     public Transform PlayerSpawnPoint { get; set; }
     public Transform NpcSpawnParent { get; set; }
     public Transform SkillObjectParent { get; set; }
@@ -32,7 +34,7 @@ public class GameManager : MonoBehaviour
         FSMStateController.Instance.Init();
         GameDataManager.Instance.Init();
         GameDataManager.Instance.SetCurrentRound(StageID);
-        GameDataManager.Instance.SetRoundData(MyPlayer, PlayerSpawnPoint, SkillObjectParent, ItemObjectParent);
+        GameDataManager.Instance.SetRoundData(player1, PlayerSpawnPoint, SkillObjectParent, ItemObjectParent);
     }
 
     private void OnDestroy()

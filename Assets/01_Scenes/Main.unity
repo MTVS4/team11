@@ -227,12 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10a6f142dc63db54db671c2f8545e018, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StageID: 1
-  MyPlayer: {fileID: 0}
-  PlayerSpawnPoint: {fileID: 0}
-  NPCSpawnParent: {fileID: 0}
-  SkillObjectParent: {fileID: 0}
-  ItemObjectParent: {fileID: 0}
+  player1: {fileID: 0}
 --- !u!4 &1701868789
 Transform:
   m_ObjectHideFlags: 0
