@@ -5,7 +5,6 @@ using UnityEngine;
 public class GameControl
 {
     private static GameControl _instance;
-    public GameObject ControlObject;
     public static GameControl Instance
     {
         get
@@ -17,7 +16,7 @@ public class GameControl
             return _instance;
         }
     }
-    
+    public GameObject ControlObject;
 
     public void OnUpdate()
     {

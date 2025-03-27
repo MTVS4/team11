@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GamePoolManager
 {
-    private static GamePoolManager _instance;
     public static GamePoolManager Instance
     {
         get
@@ -16,6 +15,7 @@ public class GamePoolManager
             return _instance;
         }
     }
+    private static GamePoolManager _instance;
     public void Init()
     {
     }

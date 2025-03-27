@@ -1,19 +1,19 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     //싱글톤 전역 변수
-    public static GameManager Instance;
-    
-    private PCSetting _setting;
-    
-    public int StageID = 1;
-    public GameObject MyPlayer;
-    public Transform PlayerSpawnPoint;
-    public Transform NPCSpawnParent;
-    public Transform SkillObjectParent;
-    public Transform ItemObjectParent;
+    public static GameManager Instance { get; set; }
+    public int StageID { get; set;} = 1;
+    public GameObject MyPlayer { get; set; }
+    public Transform PlayerSpawnPoint { get; set; }
+    public Transform NpcSpawnParent { get; set; }
+    public Transform SkillObjectParent { get; set; }
+    public Transform ItemObjectParent { get; set; }
+    private PCSetting _myPCSetting;
+
     private void Awake()
     {
         Instance = this;
@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
 
     private void SetPC()
     {
-        Application.targetFrameRate = _setting.fixedFrameRate;
+        Application.targetFrameRate = _myPCSetting.FixedFrameRate;
     }
     private void Start()
     {
@@ -33,8 +33,6 @@ public class GameManager : MonoBehaviour
         GameDataManager.Instance.Init();
         GameDataManager.Instance.SetCurrentRound(StageID);
         GameDataManager.Instance.SetRoundData(MyPlayer, PlayerSpawnPoint, SkillObjectParent, ItemObjectParent);
-        //setPC();
-        
     }
 
     private void OnDestroy()

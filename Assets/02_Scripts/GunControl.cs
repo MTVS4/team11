@@ -3,14 +3,17 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class GunControll : MonoBehaviour
+public class GunControl : MonoBehaviour
 {
-    private int speed = 100;
-    private Vector3 _screancenter;
-    public float bullletdistance = 1000f;
-    public GameObject bullet;
-    public Vector3 crossHairPosition;
+    public float bulletDistance = 1000f;
+    
+    [SerializeField]
+    private GameObject bullet;
+    
     private Camera _maincam;
+    private Vector3 _screancenter;
+    private Vector3 _crossHairPosition;
+    private const int BulletSpeed = 100;
 
     private void Awake()
     {
@@ -27,21 +30,20 @@ public class GunControll : MonoBehaviour
         {
             Fire();
         }
-        
     }
 
     private void Fire()
     {
-        crossHairPosition = GameObject.Find("CrossHair").transform.position;
+        _crossHairPosition = GameObject.Find("CrossHair").transform.position;
         _screancenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         Ray screenCenterToRay = _maincam.ScreenPointToRay(_screancenter);
         
-        GameObject newBullet = Instantiate(bullet, crossHairPosition, quaternion.identity);
+        GameObject newBullet = Instantiate(bullet, _crossHairPosition, quaternion.identity);
         var bulletRigidbody = newBullet.GetComponent<Rigidbody>();
         
-        bulletRigidbody.AddForce(screenCenterToRay.direction * speed, ForceMode.Impulse);
+        bulletRigidbody.AddForce(screenCenterToRay.direction * BulletSpeed, ForceMode.Impulse);
 
-        if (Physics.Raycast(screenCenterToRay, out RaycastHit hit, bullletdistance, LayerMask.GetMask("Enemy")))
+        if (Physics.Raycast(screenCenterToRay, out RaycastHit hit, bulletDistance, LayerMask.GetMask("Enemy")))
         {
             Destroy(hit.transform.gameObject);
         }

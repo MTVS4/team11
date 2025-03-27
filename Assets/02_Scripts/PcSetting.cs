@@ -3,5 +3,5 @@ using UnityEngine;
 
 public class PCSetting
 {
-    public int fixedFrameRate = 30;
+    public int FixedFrameRate { get; } = 30;
 }

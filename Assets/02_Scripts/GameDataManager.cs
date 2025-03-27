@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class GameDataManager
 {
-    public int Round {get; private set;}
-    private GameObject _myPlayer;
-    private Transform _spawnRoot;
-    private Transform _skillRoot;
-    private Transform _itemRoot;
-    
-    private static GameDataManager _instance;
     public static GameDataManager Instance
     {
         get
@@ -22,6 +15,14 @@ public class GameDataManager
             return _instance;
         }
     }
+    private static GameDataManager _instance;
+    
+    public int Round { get; private set; }
+    private GameObject _myPlayer;
+    private Transform _spawnRoot;
+    private Transform _skillRoot;
+    private Transform _itemRoot;
+    
     public void Init()
     {
     }

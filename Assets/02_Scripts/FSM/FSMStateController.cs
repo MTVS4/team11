@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class FSMStateController
 {
-    private static FSMStateController _instance;
     public static FSMStateController Instance
     {
         get
@@ -16,7 +15,18 @@ public class FSMStateController
             return _instance;
         }
     }
-    public EFSMStateType FSMCurrentState{get;private set;}
+    private static FSMStateController _instance;
+    
+    private EFSMStateType FSMCurrentState{get; set;}
+    
+    public void Init()
+    {
+    }
+    
+    public void Clear()
+    {
+    }
+    
     public void SetFSMCurrentState(EFSMStateType newState)
     {
         if (FSMCurrentState == newState) 
@@ -28,10 +38,5 @@ public class FSMStateController
         SceneManager.UnloadSceneAsync("UI Scene");
         SceneManager.LoadScene("Shotting Scene",LoadSceneMode.Additive);
     }
-    public void Init()
-    {
-    }
-    public void Clear()
-    {
-    }
+
 }
