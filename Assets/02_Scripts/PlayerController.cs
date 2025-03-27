@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Debug.Log(collision.gameObject.name);
         if (collision.gameObject.layer == _groundLayerMask)
         {
             Debug.Log("Collision with ground");
@@ -63,7 +64,7 @@ public class PlayerController : MonoBehaviour
             myRigidbody.angularDamping = 0.5f;  // 기본값이나 원하는 값으로 설정   
         }
     }
-    private void FixedUpdate()
+    private void Update()
     {
         var h = Input.GetAxisRaw("Horizontal");
         var v = Input.GetAxisRaw("Vertical");
@@ -126,7 +127,6 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Input.GetKeyDown(KeyCode.Space) : Space is Pressed");
             myRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
-            
         }
     }
 }
