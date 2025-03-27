@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
     //싱글톤 전역 변수
     public static GameManager Instance;
     
-    private PcSetting _setting;
+    private PCSetting _setting;
     
     public int StageID = 1;
     public GameObject MyPlayer;
@@ -14,17 +14,17 @@ public class GameManager : MonoBehaviour
     public Transform NPCSpawnParent;
     public Transform SkillObjectParent;
     public Transform ItemObjectParent;
-    void Awake()
+    private void Awake()
     {
         Instance = this;
         SceneManager.LoadSceneAsync("UI Scene", LoadSceneMode.Additive);
     }
 
-    void setPC()
+    private void SetPC()
     {
         Application.targetFrameRate = _setting.fixedFrameRate;
     }
-    void Start()
+    private void Start()
     {
         GamePoolManager.Instance.Init();
         GameControl.Instance.Init();
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-    void OnDestroy()
+    private void OnDestroy()
     {
         GamePoolManager.Instance.Clear();
         GameControl.Instance.Clear();
@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
         FSMStateController.Instance.StartGame();
     }
     
-    void Update()
+    private void Update()
     {
         GameControl.Instance.OnUpdate();
     }

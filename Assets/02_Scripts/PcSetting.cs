@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class PcSetting
+public class PCSetting
 {
     public int fixedFrameRate = 30;
 }

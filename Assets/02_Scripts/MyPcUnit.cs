@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MyPcUnit : MonoBehaviour
 {
     public UnitData CurrentUnitData;
-    public Animator UnitAnimator;
+    public Animator unitAnimator;
     
     public void InitUnit(int MaxHp, int CurrentHp, float Speed, float RotationSpeed, bool IsAlive , int UnitID)
     {
@@ -29,14 +30,13 @@ public class MyPcUnit : MonoBehaviour
         if  (CurrentUnitData != null)
             return;
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    private void Start()
     {
         
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    private void Update()
     {
         
     }

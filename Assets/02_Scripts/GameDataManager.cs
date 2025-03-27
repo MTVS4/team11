@@ -5,10 +5,10 @@ using UnityEngine;
 public class GameDataManager
 {
     public int Round {get; private set;}
-    private GameObject MyPlayer;
-    private Transform SpawnRoot;
-    private Transform SkillRoot;
-    private Transform ItemRoot;
+    private GameObject _myPlayer;
+    private Transform _spawnRoot;
+    private Transform _skillRoot;
+    private Transform _itemRoot;
     
     private static GameDataManager _instance;
     public static GameDataManager Instance
@@ -28,10 +28,10 @@ public class GameDataManager
     public void Clear()
     {
         Round = 0;
-        MyPlayer = null;
-        SpawnRoot = null;
-        SkillRoot = null;
-        ItemRoot = null;
+        _myPlayer = null;
+        _spawnRoot = null;
+        _skillRoot = null;
+        _itemRoot = null;
     }
     public void SetCurrentRound(int roundNumber)
     {
@@ -39,29 +39,29 @@ public class GameDataManager
     }
     public void SetRoundData(GameObject Player, Transform SpawnPoint, Transform SkillPoint, Transform ItemPoint)
     {
-        MyPlayer = Player;
-        SpawnRoot = SpawnPoint;
-        SkillRoot = SkillPoint;
-        ItemRoot = ItemPoint;
+        _myPlayer = Player;
+        _spawnRoot = SpawnPoint;
+        _skillRoot = SkillPoint;
+        _itemRoot = ItemPoint;
     }
 
     public GameObject GetPlayer()
     {
-        return MyPlayer;
+        return _myPlayer;
     }
 
     public Transform GetSpawnPoint()
     {
-        return SpawnRoot;
+        return _spawnRoot;
     }
 
     public Transform GetSkillPoint()
     {
-        return SkillRoot;
+        return _skillRoot;
     }
 
     public Transform GetItemPoint()
     {
-        return ItemRoot;
+        return _itemRoot;
     }
 }

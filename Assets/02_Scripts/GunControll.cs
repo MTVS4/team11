@@ -1,44 +1,47 @@
 using System;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GunControll : MonoBehaviour
 {
+    private int speed = 100;
+    private Vector3 _screancenter;
     public float bullletdistance = 1000f;
     public GameObject bullet;
-    public Vector3 CrossHairposition;
-    public Camera maincam;
-    void Awake()
+    public Vector3 crossHairPosition;
+    private Camera _maincam;
+
+    private void Awake()
     {
-        
-        maincam = Camera.main;
+        _maincam = Camera.main;
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    private void Start()
     {
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            fire();
+            Fire();
         }
         
     }
 
-    void fire()
+    private void Fire()
     {
-        CrossHairposition = GameObject.Find("CrossHair").transform.position;
-        GameObject newBullet = Instantiate(bullet, CrossHairposition, quaternion.identity);
+        crossHairPosition = GameObject.Find("CrossHair").transform.position;
+        _screancenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        Ray screenCenterToRay = _maincam.ScreenPointToRay(_screancenter);
+        
+        GameObject newBullet = Instantiate(bullet, crossHairPosition, quaternion.identity);
         var bulletRigidbody = newBullet.GetComponent<Rigidbody>();
-        Vector3 screancenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-        Ray ray = maincam.ScreenPointToRay(screancenter);
-        var speed = 100;
-        bulletRigidbody.AddForce(ray.direction * speed, ForceMode.Impulse);
+        
+        bulletRigidbody.AddForce(screenCenterToRay.direction * speed, ForceMode.Impulse);
 
-        if (Physics.Raycast(ray, out RaycastHit hit, bullletdistance, LayerMask.GetMask("Enemy")))
+        if (Physics.Raycast(screenCenterToRay, out RaycastHit hit, bullletdistance, LayerMask.GetMask("Enemy")))
         {
             Destroy(hit.transform.gameObject);
         }
