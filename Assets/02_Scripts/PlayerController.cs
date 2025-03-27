@@ -16,58 +16,54 @@ public class PlayerController : MonoBehaviour
     private CharacterController bodyCharacterController;
     private Vector3 _lastPoint;
     private Rigidbody myRigidbody;
-    private bool isGrounded;
+    public bool _isGrounded;
+    public bool _isOnWall;
+    public int _groundLayerMask;
+    public int _wallLayerMask;
 
     private void Awake()
     {
         bodyCharacterController = GetComponentInChildren<CharacterController>();
         myRigidbody = GetComponent<Rigidbody>();
         playerBody = GameObject.Find("body");
-        
+        _groundLayerMask = LayerMask.GetMask("Ground");
+        _wallLayerMask = LayerMask.GetMask("Wall");
+        _isGrounded = true;
+        _isOnWall = false;
     }
 
-    private void Jump()
+    private void OnCollisionEnter(Collision collision)
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            Debug.Log("Input.GetKeyDown(KeyCode.Space) : Space is Pressed");
-            myRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
-            
-        }
-    }
-    void OnCollisionStay(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.gameObject.layer == _groundLayerMask)
         {
             Debug.Log("Collision with ground");
-            isGrounded = true;
+            _isGrounded = true;
         }
-        if (collision.gameObject.CompareTag("Wall"))
+        else if (collision.gameObject.layer == _wallLayerMask)
         {
             Debug.Log("Collision with wall");
-            // 벽과 접촉 중일 때 damping을 무한대로 설정
-            myRigidbody.linearDamping = float.PositiveInfinity;
-            myRigidbody.angularDamping = float.PositiveInfinity;
+            _isOnWall = true;
         }
     }
 
     void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.layer == _groundLayerMask)
+        {
+            Debug.Log("Collision Ground Exit");
+            _isGrounded = false;
+            Debug.Log($"_isGrounded : {_isGrounded}");
+        }
+        else if (collision.gameObject.layer == _wallLayerMask)
         {
             Debug.Log("Collision Wall Exit");
+            _isOnWall = false;
             // 벽에서 떨어지면 damping을 원래 값으로 복원
             myRigidbody.linearDamping = 1f;  // 기본값이나 원하는 값으로 설정
             myRigidbody.angularDamping = 0.5f;  // 기본값이나 원하는 값으로 설정   
         }
-
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            Debug.Log("Collision Ground Exit");
-            isGrounded = false;
-        }
     }
-    private void Update()
+    private void FixedUpdate()
     {
         var h = Input.GetAxisRaw("Horizontal");
         var v = Input.GetAxisRaw("Vertical");
@@ -123,8 +119,14 @@ public class PlayerController : MonoBehaviour
         }
         
         Jump();
-        
-        
-
+    }
+    private void Jump()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+        {
+            Debug.Log("Input.GetKeyDown(KeyCode.Space) : Space is Pressed");
+            myRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
+            
+        }
     }
 }
