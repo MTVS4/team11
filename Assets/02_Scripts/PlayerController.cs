@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using UnityEditor;
 using UnityEngine;
@@ -13,51 +14,34 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject playerBody;
     [SerializeField] private Rigidbody myRigidbody;
     private const float MoveSpeed = 4f;
-    private const float JumpForce = 10f;
+    private const float JumpForce = 500f;
     private Vector3 _lastPoint;
     public bool _isGrounded;
-    public bool _isOnWall;
     public int _groundLayerMask;
     public int _wallLayerMask;
 
     private void Awake()
     {
-        _groundLayerMask = LayerMask.GetMask("Ground");
-        _wallLayerMask = LayerMask.GetMask("Wall");
         _isGrounded = true;
-        _isOnWall = false;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log(collision.gameObject.name);
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.collider.CompareTag("Ground"))
         {
             Debug.Log("Collision with ground");
             _isGrounded = true;
-        }
-        else if (collision.gameObject.CompareTag("Ground"))
-        {
-            Debug.Log("Collision with wall");
-            _isOnWall = true;
         }
     }
 
     void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (collision.collider.CompareTag("Ground"))
         {
             Debug.Log("Collision Ground Exit");
             _isGrounded = false;
             Debug.Log($"_isGrounded : {_isGrounded}");
-        }
-        else if (collision.gameObject.CompareTag("Wall"))
-        {
-            Debug.Log("Collision Wall Exit");
-            _isOnWall = false;
-            // 벽에서 떨어지면 damping을 원래 값으로 복원
-            myRigidbody.linearDamping = 1f;  // 기본값이나 원하는 값으로 설정
-            myRigidbody.angularDamping = 0.5f;  // 기본값이나 원하는 값으로 설정   
         }
     }
     
@@ -65,7 +49,7 @@ public class PlayerController : MonoBehaviour
     {
         var h = Input.GetAxisRaw("Horizontal");
         var v = Input.GetAxisRaw("Vertical");
-        //var dir = new Vector3(h, 0f, v).normalized;
+
         if (Mathf.Approximately(h, 0f) && Mathf.Approximately(v, 0f))
         {
             ismoved = false;
@@ -96,8 +80,6 @@ public class PlayerController : MonoBehaviour
         rotation.eulerAngles = angles;
         playerBody.transform.rotation = rotation;
         
-        //var forwardDirection = Vector3.ProjectOnPlane(body.transform.forward, Vector3.up);
-
         if (Input.GetKey(KeyCode.W))
         {
             playerBody.transform.position += MoveSpeed * Time.deltaTime * playerBody.transform.forward;
@@ -123,11 +105,9 @@ public class PlayerController : MonoBehaviour
     
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
         {
-            Vector3 A = new Vector3(0, 1, 0);
-            Debug.Log("Input.GetKeyDown(KeyCode.Space) : Space is Pressed");
-            myRigidbody.AddForce(A * JumpForce, ForceMode.Impulse);
+            myRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
             Debug.Log("Input.GetKeyUp(KeyCode.Space) : Space is Released");
         }
     }

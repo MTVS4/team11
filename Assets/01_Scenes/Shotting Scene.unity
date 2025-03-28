@@ -1871,6 +1871,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8348473906653305165, guid: bb81a67ad1cf2984784527d333cae7d2, type: 3}
   m_PrefabInstance: {fileID: 455339089}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &460410056 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 7231420624647480617, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
+  m_PrefabInstance: {fileID: 8632342720700169642}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &471535569
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3137,7 +3142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &932201226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4978,11 +4983,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3507529684465261469, guid: c5c251c4f6ea3694285b311cea75f2a2, type: 3}
   m_PrefabInstance: {fileID: 1456016444}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &1478548951 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 7158616663202209146, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
-  m_PrefabInstance: {fileID: 8632342720700169642}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1520738597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5473,7 +5473,7 @@ GameObject:
   - component: {fileID: 1732818713}
   m_Layer: 8
   m_Name: Demo
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6395,7 +6395,7 @@ GameObject:
   - component: {fileID: 2022594517}
   m_Layer: 9
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6408,7 +6408,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2022594515}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -5, z: 0}
   m_LocalScale: {x: 100, y: 10, z: 100}
   m_ConstrainProportionsScale: 0
@@ -7304,7 +7304,7 @@ PrefabInstance:
     - target: {fileID: 3796151338946731313, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
       propertyPath: myRigidbody
       value: 
-      objectReference: {fileID: 1478548951}
+      objectReference: {fileID: 460410056}
     - target: {fileID: 3875759977844449876, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7348,18 +7348,6 @@ PrefabInstance:
     - target: {fileID: 5834325129290372407, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7158616663202209146, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
-      propertyPath: m_Drag
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7158616663202209146, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
-      propertyPath: m_AngularDrag
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7158616663202209146, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
-      propertyPath: m_Constraints
-      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
