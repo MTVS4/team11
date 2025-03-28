@@ -9,13 +9,12 @@ public class PlayerController : MonoBehaviour
     public bool isShootting = false;
     
     [SerializeField] private Animator shooter;
+    [SerializeField] private GameObject player;
     [SerializeField] private GameObject playerBody;
-    
+    [SerializeField] private Rigidbody myRigidbody;
     private const float MoveSpeed = 4f;
-    private const float JumpForce = 30f;
-    private CharacterController bodyCharacterController;
+    private const float JumpForce = 3f;
     private Vector3 _lastPoint;
-    private Rigidbody myRigidbody;
     public bool _isGrounded;
     public bool _isOnWall;
     public int _groundLayerMask;
@@ -23,16 +22,14 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
-        bodyCharacterController = GetComponentInChildren<CharacterController>();
-        myRigidbody = GetComponent<Rigidbody>();
-        playerBody = GameObject.Find("body");
         _groundLayerMask = LayerMask.GetMask("Ground");
         _wallLayerMask = LayerMask.GetMask("Wall");
         _isGrounded = true;
         _isOnWall = false;
+        // myRigidbody.freezeRotation = true;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    /*private void OnCollisionEnter(Collision collision)
     {
         Debug.Log(collision.gameObject.name);
         if (collision.gameObject.layer == _groundLayerMask)
@@ -45,9 +42,9 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Collision with wall");
             _isOnWall = true;
         }
-    }
+    }*/
 
-    void OnCollisionExit(Collision collision)
+    /*void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.layer == _groundLayerMask)
         {
@@ -63,7 +60,7 @@ public class PlayerController : MonoBehaviour
             myRigidbody.linearDamping = 1f;  // 기본값이나 원하는 값으로 설정
             myRigidbody.angularDamping = 0.5f;  // 기본값이나 원하는 값으로 설정   
         }
-    }
+    }*/
     private void Update()
     {
         var h = Input.GetAxisRaw("Horizontal");
@@ -102,6 +99,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             playerBody.transform.position += MoveSpeed * Time.deltaTime * playerBody.transform.forward;
+            
         }
 
         if (Input.GetKey(KeyCode.S))
@@ -118,15 +116,17 @@ public class PlayerController : MonoBehaviour
         {
             playerBody.transform.position += MoveSpeed * Time.deltaTime * playerBody.transform.right;  
         }
-        
         Jump();
     }
+    
     private void Jump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space))
         {
+            Vector3 A = new Vector3(0, 1, 0);
             Debug.Log("Input.GetKeyDown(KeyCode.Space) : Space is Pressed");
-            myRigidbody.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
+            myRigidbody.AddForce(A * JumpForce, ForceMode.Impulse);
+            Debug.Log("Input.GetKeyUp(KeyCode.Space) : Space is Released");
         }
     }
 }

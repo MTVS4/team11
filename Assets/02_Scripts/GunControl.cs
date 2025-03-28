@@ -7,8 +7,8 @@ public class GunControl : MonoBehaviour
 {
     public float bulletDistance = 1000f;
     
-    [SerializeField]
-    private GameObject bullet;
+    [SerializeField] private GameObject bullet;
+    [SerializeField] private GameObject crossHair;
     
     private Camera _maincam;
     private Vector3 _screancenter;
