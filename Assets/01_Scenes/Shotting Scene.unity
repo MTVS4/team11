@@ -1649,11 +1649,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8348473906653305165, guid: bb81a67ad1cf2984784527d333cae7d2, type: 3}
   m_PrefabInstance: {fileID: 455339089}
   m_PrefabAsset: {fileID: 0}
---- !u!54 &460410056 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 7231420624647480617, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
-  m_PrefabInstance: {fileID: 8632342720700169642}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &471535569
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4601,53 +4596,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4441194852809919528, guid: 5c6a1648d6f5d8b45997037cbb0ea5ff, type: 3}
   m_PrefabInstance: {fileID: 1520738597}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1540244220
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1540244222}
-  - component: {fileID: 1540244221}
-  m_Layer: 0
-  m_Name: GunSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1540244221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1540244220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc76ae0dd4aeb404287d446227ec3869, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletDistance: 1000
-  bullet: {fileID: 8603560170966465891, guid: 7bc8cf15778e7c8449c6814784499976, type: 3}
-  crossHair: {fileID: 0}
---- !u!4 &1540244222
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1540244220}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1557191043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6760,10 +6708,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3796151338946731313, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
-      propertyPath: myRigidbody
-      value: 
-      objectReference: {fileID: 460410056}
     - target: {fileID: 3875759977844449876, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6822,7 +6766,6 @@ SceneRoots:
   - {fileID: 363177792}
   - {fileID: 8632342720700169642}
   - {fileID: 1916675866}
-  - {fileID: 1540244222}
   - {fileID: 836705690}
   - {fileID: 1450995256}
   - {fileID: 1031488374}

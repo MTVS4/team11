@@ -9,6 +9,7 @@ public class GunControl : MonoBehaviour
     
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject crossHair;
+    [SerializeField] private AudioSource gunFireAudioSource;
     
     private Camera _maincam;
     private Vector3 _screancenter;
@@ -24,10 +25,16 @@ public class GunControl : MonoBehaviour
     {
     }
 
+    private void PlayGunFireSound()
+    {
+        gunFireAudioSource.Play();
+    }
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            PlayGunFireSound();
             Fire();
         }
     }

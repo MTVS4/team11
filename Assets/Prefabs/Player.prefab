@@ -413,7 +413,6 @@ MonoBehaviour:
   playerBody: {fileID: 959047100830205591}
   myRigidbody: {fileID: 7231420624647480617}
   _isGrounded: 0
-  _isOnWall: 1
   _groundLayerMask: 0
   _wallLayerMask: 0
 --- !u!54 &7231420624647480617
