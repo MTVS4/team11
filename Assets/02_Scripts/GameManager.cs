@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject); // 어떤 씬으로 넘어가던 본 객체가 절대 부서지지 마시오.
         Instance = this;
         SceneManager.LoadSceneAsync("UI Scene", LoadSceneMode.Additive);
     }
