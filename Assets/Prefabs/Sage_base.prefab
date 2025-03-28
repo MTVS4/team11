@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2929180144196223890}
   - component: {fileID: 1224519314205858256}
-  - component: {fileID: 805206316167746820}
+  - component: {fileID: 8562973515151893742}
   m_Layer: 0
   m_Name: GunController
   m_TagString: Untagged
@@ -48,8 +48,8 @@ MonoBehaviour:
   bulletDistance: 1000
   bullet: {fileID: 8603560170966465891, guid: 7bc8cf15778e7c8449c6814784499976, type: 3}
   crossHair: {fileID: 5835718524487229989}
-  gunFireAudioSource: {fileID: 805206316167746820}
---- !u!82 &805206316167746820
+  gunFireAudioSource: {fileID: 8562973515151893742}
+--- !u!82 &8562973515151893742
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,9 +59,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8761ce94b59dc4b9eb6ec276d38e4929, type: 3}
-  m_Resource: {fileID: 8300000, guid: 8761ce94b59dc4b9eb6ec276d38e4929, type: 3}
-  m_PlayOnAwake: 0
+  m_audioClip: {fileID: 8300000, guid: 5e618adc6843c4ac882ebd3ece5fe64f, type: 3}
+  m_Resource: {fileID: 8300000, guid: 5e618adc6843c4ac882ebd3ece5fe64f, type: 3}
+  m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

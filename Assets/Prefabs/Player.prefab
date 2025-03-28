@@ -450,6 +450,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3875759977844449876}
     m_Modifications:
+    - target: {fileID: 1224519314205858256, guid: 39a88ac07c7547d44b86c91dd37f245f, type: 3}
+      propertyPath: gunFireAudioSource
+      value: 
+      objectReference: {fileID: 2823917928314964559}
     - target: {fileID: 6332537725694833292, guid: 39a88ac07c7547d44b86c91dd37f245f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -507,6 +511,11 @@ Transform:
 --- !u!1 &959047100830205591 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6677256248674265142, guid: 39a88ac07c7547d44b86c91dd37f245f, type: 3}
+  m_PrefabInstance: {fileID: 5901221224304275105}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &2823917928314964559 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8562973515151893742, guid: 39a88ac07c7547d44b86c91dd37f245f, type: 3}
   m_PrefabInstance: {fileID: 5901221224304275105}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &6857169165161749587 stripped
