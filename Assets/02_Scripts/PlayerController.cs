@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject playerBody;
     [SerializeField] private Rigidbody myRigidbody;
     private const float MoveSpeed = 4f;
-    private const float JumpForce = 3f;
+    private const float JumpForce = 10f;
     private Vector3 _lastPoint;
     public bool _isGrounded;
     public bool _isOnWall;
@@ -26,33 +26,32 @@ public class PlayerController : MonoBehaviour
         _wallLayerMask = LayerMask.GetMask("Wall");
         _isGrounded = true;
         _isOnWall = false;
-        // myRigidbody.freezeRotation = true;
     }
 
-    /*private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         Debug.Log(collision.gameObject.name);
-        if (collision.gameObject.layer == _groundLayerMask)
+        if (collision.gameObject.CompareTag("Ground"))
         {
             Debug.Log("Collision with ground");
             _isGrounded = true;
         }
-        else if (collision.gameObject.layer == _wallLayerMask)
+        else if (collision.gameObject.CompareTag("Ground"))
         {
             Debug.Log("Collision with wall");
             _isOnWall = true;
         }
-    }*/
+    }
 
-    /*void OnCollisionExit(Collision collision)
+    void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.layer == _groundLayerMask)
+        if (collision.gameObject.CompareTag("Ground"))
         {
             Debug.Log("Collision Ground Exit");
             _isGrounded = false;
             Debug.Log($"_isGrounded : {_isGrounded}");
         }
-        else if (collision.gameObject.layer == _wallLayerMask)
+        else if (collision.gameObject.CompareTag("Wall"))
         {
             Debug.Log("Collision Wall Exit");
             _isOnWall = false;
@@ -60,7 +59,8 @@ public class PlayerController : MonoBehaviour
             myRigidbody.linearDamping = 1f;  // 기본값이나 원하는 값으로 설정
             myRigidbody.angularDamping = 0.5f;  // 기본값이나 원하는 값으로 설정   
         }
-    }*/
+    }
+    
     private void Update()
     {
         var h = Input.GetAxisRaw("Horizontal");
@@ -91,7 +91,9 @@ public class PlayerController : MonoBehaviour
             }
         }
         var rotation = playerBody.transform.rotation;
-        rotation.y = Camera.main.transform.rotation.y;
+        var angles = rotation.eulerAngles;
+        angles.y = Camera.main.transform.rotation.eulerAngles.y;
+        rotation.eulerAngles = angles;
         playerBody.transform.rotation = rotation;
         
         //var forwardDirection = Vector3.ProjectOnPlane(body.transform.forward, Vector3.up);
