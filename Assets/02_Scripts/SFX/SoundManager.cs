@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BGMManager : MonoBehaviour
@@ -65,14 +66,16 @@ public class BGMManager : MonoBehaviour
     }
     IEnumerator VolumeFadeDownCoroutine(AudioSource currentBGM)
     {
-        var currentVolume = currentBGM.volume;
-        for (float i = currentVolume; i > 0; i -= Time.deltaTime)
+        for (float i = currentBGM.volume; currentBGM.volume >= 0 ; i -= Time.deltaTime)
         {
             Debug.Log($"Current Volume : {i}"); ;
             currentBGM.volume = i;
-            if (i == 0)
+            if (Mathf.Approximately(currentBGM.volume, 0f))
             {
-                Debug.Log("BGM volume is now ZERO");
+                currentBGM.volume = 0f;
+                Debug.Log("FadeOutBGM() : Deactivate");
+                yield break;
+                Debug.Log("ERROR");
             }
             yield return new WaitForSeconds(Time.deltaTime);
         }
