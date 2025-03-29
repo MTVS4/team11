@@ -7,5 +7,6 @@ public enum EFSMStateType
     Start,
     Lobby,
     Progress,
-    End,
+    Win,
+    Lose,
 }

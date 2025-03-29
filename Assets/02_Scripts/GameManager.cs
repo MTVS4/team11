@@ -20,28 +20,19 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject); // 어떤 씬으로 넘어가던 본 객체가 절대 부서지지 마시오.
         Instance = this;
-        SceneManager.LoadSceneAsync("UI Scene", LoadSceneMode.Additive);
+        SceneManager.LoadSceneAsync("Lobby Scene", LoadSceneMode.Additive);
     }
-
-    private void SetPC()
-    {
-        Application.targetFrameRate = _myPCSetting.FixedFrameRate;
-    }
+    
     private void Start()
     {
-        GamePoolManager.Instance.Init();
-        GameControl.Instance.Init();
         SpawnManager.Instance.Init();
         FSMStateController.Instance.Init();
         GameDataManager.Instance.Init();
-        GameDataManager.Instance.SetCurrentRound(StageID);
         GameDataManager.Instance.SetRoundData(player1, PlayerSpawnPoint, SkillObjectParent, ItemObjectParent);
     }
 
     private void OnDestroy()
     {
-        GamePoolManager.Instance.Clear();
-        GameControl.Instance.Clear();
         SpawnManager.Instance.Clear();
         FSMStateController.Instance.Clear();
         GameDataManager.Instance.Clear();
@@ -53,8 +44,13 @@ public class GameManager : MonoBehaviour
         FSMStateController.Instance.StartGame();
     }
     
+    public void SetFSMstateToWin()
+    {
+        FSMStateController.Instance.SetFSMCurrentState(EFSMStateType.Win);
+        FSMStateController.Instance.StartGame();
+    }
+    
     private void Update()
     {
-        GameControl.Instance.OnUpdate();
     }
 }
