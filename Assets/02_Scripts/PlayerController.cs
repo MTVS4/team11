@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     private const float JumpForce = 500f;
     private Vector3 _lastPoint;
     public bool _isGrounded;
+    public bool _isTouchingWall;
+    private Vector3 _playerLastPosition;
     public int _groundLayerMask;
     public int _wallLayerMask;
 
@@ -28,6 +30,12 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log(collision.gameObject.name);
+        if (collision.collider.CompareTag("Wall"))
+        {
+            Debug.Log("Collision with Wall");
+            _isTouchingWall = true;
+        }
+        
         if (collision.collider.CompareTag("Ground"))
         {
             Debug.Log("Collision with ground");
@@ -43,12 +51,18 @@ public class PlayerController : MonoBehaviour
             _isGrounded = false;
             Debug.Log($"_isGrounded : {_isGrounded}");
         }
+        if (collision.collider.CompareTag("Wall"))
+        {
+            Debug.Log("Collision with Wall");
+            _isTouchingWall = false;
+        }
     }
     
     private void Update()
     {
         var h = Input.GetAxisRaw("Horizontal");
         var v = Input.GetAxisRaw("Vertical");
+        _playerLastPosition = playerBody.transform.position;
 
         if (Mathf.Approximately(h, 0f) && Mathf.Approximately(v, 0f))
         {
@@ -74,12 +88,14 @@ public class PlayerController : MonoBehaviour
                 shooter.SetBool("IsShootted", isShootting);
             }
         }
+        
+        
         var rotation = playerBody.transform.rotation;
         var angles = rotation.eulerAngles;
         angles.y = Camera.main.transform.rotation.eulerAngles.y;
         rotation.eulerAngles = angles;
         playerBody.transform.rotation = rotation;
-        
+            
         if (Input.GetKey(KeyCode.W))
         {
             playerBody.transform.position += MoveSpeed * Time.deltaTime * playerBody.transform.forward;
@@ -100,7 +116,11 @@ public class PlayerController : MonoBehaviour
         {
             playerBody.transform.position += MoveSpeed * Time.deltaTime * playerBody.transform.right;  
         }
+        
         Jump();
+
+        Debug.Log($"_isTouchingWall :  {_isTouchingWall}");
+        Debug.Log($"_isGrounded : {_isGrounded}");
     }
     
     private void Jump()

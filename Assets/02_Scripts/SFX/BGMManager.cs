@@ -11,6 +11,12 @@ public class BGMManager : MonoBehaviour
     private float _currentBGMVolume = 0.3f;
     private AudioSource _currentBGM;
     
+    public void ChangeVolumeSlowly()
+    {
+        
+        StartCoroutine(ChangeVolumeCoroutine(_currentBGM, 0.05f));
+    }
+    
     public void StopBGM(int i)
     {
         _BGMaudioSources[i].Stop();
@@ -45,6 +51,7 @@ public class BGMManager : MonoBehaviour
         }
 
         _BGMaudioSources[i].volume = _currentBGMVolume;
+        _BGMaudioSources[i].loop = true;
         _BGMaudioSources[i].Play();
         _currentBGM = _BGMaudioSources[i];
     }
@@ -55,25 +62,17 @@ public class BGMManager : MonoBehaviour
         PlayBGM(0);
     }
 
-    public void FadeOutBGM()
+    private IEnumerator ChangeVolumeCoroutine(AudioSource currentBGM, float targetVolume)
     {
-        StartAudioFadeOut(_currentBGM);
-        Debug.Log("FadeOutBGM() : Activate");
-    }
-    private void StartAudioFadeOut(AudioSource audioSource)
-    {
-        StartCoroutine(VolumeFadeDownCoroutine(audioSource));
-    }
-    IEnumerator VolumeFadeDownCoroutine(AudioSource currentBGM)
-    {
-        for (float i = currentBGM.volume; currentBGM.volume >= 0 ; i -= Time.deltaTime)
+        for (float i = currentBGM.volume; currentBGM.volume >= targetVolume ; i -= Time.deltaTime)
         {
-            Debug.Log($"Current Volume : {i}"); ;
+            Debug.Log($"Current Volume : {i}");
+            Debug.Log($"Target Volume : {targetVolume}");
             currentBGM.volume = i;
             if (Mathf.Approximately(currentBGM.volume, 0f))
             {
                 currentBGM.volume = 0f;
-                Debug.Log("FadeOutBGM() : Deactivate");
+                Debug.Log("ChageVolumeCoroutine : Deactivate");
                 yield break;
                 Debug.Log("ERROR");
             }
