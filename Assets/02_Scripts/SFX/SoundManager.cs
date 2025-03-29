@@ -1,17 +1,17 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class BGMManager : MonoBehaviour
 {
     [SerializeField] private AudioClip[] _BGMAudioClips;
     private AudioSource[] _BGMaudioSources;
-    private int _currentBGM;
     private int _totalNumberOfBGMs;
-    private float _currentAllBGMVolume = 0.3f;
+    private float _currentBGMVolume = 0.3f;
+    private AudioSource _currentBGM;
     
     public void StopBGM(int i)
     {
-        i = _currentBGM;
         _BGMaudioSources[i].Stop();
     }
     private void Awake()
@@ -29,9 +29,9 @@ public class BGMManager : MonoBehaviour
         }
     }
 
-    private void ChangeAllBGMsVolume(float volume)
+    private void ChangeBGMVolume(float volume)
     {
-        _currentAllBGMVolume = volume;
+        _currentBGMVolume = volume;
     }
     
 
@@ -43,14 +43,39 @@ public class BGMManager : MonoBehaviour
             return;
         }
 
-        _BGMaudioSources[i].volume = _currentAllBGMVolume;
+        _BGMaudioSources[i].volume = _currentBGMVolume;
         _BGMaudioSources[i].Play();
+        _currentBGM = _BGMaudioSources[i];
     }
 
     private void Start()
     {
-        ChangeAllBGMsVolume(_currentAllBGMVolume);
+        ChangeBGMVolume(_currentBGMVolume);
         PlayBGM(0);
+    }
+
+    public void FadeOutBGM()
+    {
+        StartAudioFadeOut(_currentBGM);
+        Debug.Log("FadeOutBGM() : Activate");
+    }
+    private void StartAudioFadeOut(AudioSource audioSource)
+    {
+        StartCoroutine(VolumeFadeDownCoroutine(audioSource));
+    }
+    IEnumerator VolumeFadeDownCoroutine(AudioSource currentBGM)
+    {
+        var currentVolume = currentBGM.volume;
+        for (float i = currentVolume; i > 0; i -= Time.deltaTime)
+        {
+            Debug.Log($"Current Volume : {i}"); ;
+            currentBGM.volume = i;
+            if (i == 0)
+            {
+                Debug.Log("BGM volume is now ZERO");
+            }
+            yield return new WaitForSeconds(Time.deltaTime);
+        }
     }
 }
 
