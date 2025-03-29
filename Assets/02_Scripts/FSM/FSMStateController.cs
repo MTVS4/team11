@@ -33,6 +33,7 @@ public class FSMStateController
             return;
         FSMCurrentState = newState;
     }
+    
     public void StartGame()
     {
         SceneManager.UnloadSceneAsync("Lobby Scene");

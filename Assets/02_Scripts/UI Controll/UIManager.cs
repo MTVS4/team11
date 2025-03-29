@@ -16,11 +16,20 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Win");
         winPanel.SetActive(true);
+        Invoke("RestartGame", 5f);
+    }
+
+    public void RestartGame()
+    {   
+        var BGMManager = GameObject.Find("BGMManager");
+        Destroy(BGMManager);
+        GameManager.Instance.RestartGame();
     }
     public void ShowLosePanel()
     {
         Debug.Log("Lose");
         losePanel.SetActive(true);
+        FSMStateController.Instance.SetFSMCurrentState(EFSMStateType.Win);
     }
     void Start()
     {

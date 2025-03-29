@@ -49,7 +49,13 @@ public class GameManager : MonoBehaviour
         FSMStateController.Instance.SetFSMCurrentState(EFSMStateType.Win);
         FSMStateController.Instance.StartGame();
     }
-    
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene("Lobby Scene");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
     private void Update()
     {
     }
