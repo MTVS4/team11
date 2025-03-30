@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
 public class SkillSystem : MonoBehaviour
@@ -14,6 +15,12 @@ public class SkillSystem : MonoBehaviour
     public MyPcUnitData myPcUnitData = new MyPcUnitData();
     public static int currentCharacterID;
     
+    public Volume effectVolume;
+    
+    private Camera _maincam;
+    private Vector3 _screancenter;
+    private Vector3 _crossHairPosition;
+    
     public void Awake()
     {
         Instance = this;
@@ -21,6 +28,7 @@ public class SkillSystem : MonoBehaviour
 
     void Start()
     {
+        _maincam = Camera.main;
     }
 
     void Update()
@@ -33,7 +41,16 @@ public class SkillSystem : MonoBehaviour
             Debug.Log("Input.GetKeyDown(KeyCode.Q) : Q is Pressed");
             
             if (IsSkill1Available == true)
-            {
+            {                
+                if (currentCharacterID == 1)
+                {
+                    Debug.Log("(GameManager.Instance.UnitID == GameManager.CharacterID.Sage)");
+                    SageSkill1();
+                }
+                else if (currentCharacterID == 2)
+                {
+                    Debug.Log("(GameManager.Instance.UnitID == GameManager.CharacterID.Jett)");
+                }
                 StartSkill1CountDown(15, skillName1);
             }
 
@@ -58,6 +75,18 @@ public class SkillSystem : MonoBehaviour
                 StartSkill2CountDown(30, skillName2);
 
             }
+        }
+    }
+    
+    private void SageSkill1()
+    {
+        _crossHairPosition = GameObject.Find("CrossHair").transform.position;
+        _screancenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        Ray screenCenterToRay = _maincam.ScreenPointToRay(_screancenter);
+        
+        if (Physics.Raycast(screenCenterToRay, out RaycastHit hit, 100f,LayerMask.GetMask("Ground", "Wall")))
+        {
+            Volume newEffectVolume = Instantiate(effectVolume, hit.point, Quaternion.identity);
         }
     }
 

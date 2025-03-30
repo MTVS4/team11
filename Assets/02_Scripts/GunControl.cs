@@ -1,6 +1,7 @@
 using System;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 public class GunControl : MonoBehaviour
@@ -15,6 +16,7 @@ public class GunControl : MonoBehaviour
     private Vector3 _screancenter;
     private Vector3 _crossHairPosition;
     private const int BulletSpeed = 100;
+    [SerializeField] private Scene targetScene;
 
     private void Awake()
     {
@@ -23,6 +25,7 @@ public class GunControl : MonoBehaviour
 
     private void Start()
     {
+        targetScene = SceneManager.GetSceneByName("Shooting Scene");
     }
 
     private void PlayGunFireSound()
@@ -46,12 +49,14 @@ public class GunControl : MonoBehaviour
         Ray screenCenterToRay = _maincam.ScreenPointToRay(_screancenter);
         
         GameObject newBullet = Instantiate(bullet, _crossHairPosition, quaternion.identity);
+        SceneManager.MoveGameObjectToScene(newBullet, targetScene);
         var bulletRigidbody = newBullet.GetComponent<Rigidbody>();
         
         bulletRigidbody.AddForce(screenCenterToRay.direction * BulletSpeed, ForceMode.Impulse);
 
         if (Physics.Raycast(screenCenterToRay, out RaycastHit hit, bulletDistance, LayerMask.GetMask("Enemy")))
         {
+            
             Destroy(hit.transform.gameObject);
             ShootingUIManager.Instance.ShowWinPanel();
         }
