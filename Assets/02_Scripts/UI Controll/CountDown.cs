@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -5,11 +6,12 @@ using UnityEngine;
 public class CountDown : MonoBehaviour
 {
     public TextMeshProUGUI roundTimeText;
-    void Start()
+
+    public void Start()
     {
-        roundTimeText = GameObject.Find("CountdownText").GetComponent<TextMeshProUGUI>();
-        startCountDown(40);
+        startCountDown(40f);
     }
+
     public void startCountDown(float seconds)
     {
         StartCoroutine(CountDownCoroutine(seconds));

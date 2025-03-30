@@ -53,7 +53,7 @@ public class GunControl : MonoBehaviour
         if (Physics.Raycast(screenCenterToRay, out RaycastHit hit, bulletDistance, LayerMask.GetMask("Enemy")))
         {
             Destroy(hit.transform.gameObject);
-            UIManager.Instance.ShowWinPanel();
+            ShootingUIManager.Instance.ShowWinPanel();
         }
     }
     

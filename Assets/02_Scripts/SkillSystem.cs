@@ -4,33 +4,34 @@ using UnityEngine;
 
 public class SkillSystem : MonoBehaviour
 {
-    public static SkillSystem instance;
-    public static TextMeshProUGUI skillName1;
-    public static TextMeshProUGUI skillName2;
-    private static bool IsSkill1Available = true;
-    private static bool IsSkill2Available = true;
+    public SkillSystem instance;
+    public TextMeshProUGUI currentHPText;
+    public TextMeshProUGUI skillName1;
+    public TextMeshProUGUI skillName2;
+    private bool IsSkill1Available = true;
+    private bool IsSkill2Available = true;
+    
 
     public void Awake()
     {
         instance = this;
-        skillName1 = GameObject.Find("Text (TMP) SK1").GetComponent<TextMeshProUGUI>();
-        skillName2 = GameObject.Find("Text (TMP) SK2").GetComponent<TextMeshProUGUI>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Debug.Log("Input.GetKeyDown(KeyCode.Q) : Q is Pressed");
+            
             if (IsSkill1Available == true)
             {
+                GameManager.Instance.myPcUnit.CurrentHp += 10;
+                currentHPText.text = GameManager.Instance.myPcUnit.CurrentHp.ToString();
                 StartSkill1CountDown(15, skillName1);
             }
 

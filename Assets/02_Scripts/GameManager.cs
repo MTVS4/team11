@@ -43,8 +43,15 @@ public class GameManager : MonoBehaviour
         FSMStateController.Instance.StartGame();
     }
 
+    public void AutoRestartGame()
+    {
+        Invoke("RestartGame", 5f);
+    }
+
     public void RestartGame()
     {
+        var BGMManager = GameObject.Find("BGMManager");
+        Destroy(BGMManager);
         SceneManager.LoadScene("Lobby Scene");
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;

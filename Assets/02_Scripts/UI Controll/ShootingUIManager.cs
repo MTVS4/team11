@@ -1,10 +1,11 @@
+using TMPro;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class ShootingUIManager : MonoBehaviour
 {
     //싱글톤 전역 변수
-    public static UIManager Instance { get; set; }
-    
+    public static ShootingUIManager Instance { get; set; }
+    [SerializeField] private TextMeshProUGUI HPText;
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
     private void Awake()
@@ -16,28 +17,13 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Win");
         winPanel.SetActive(true);
-        Invoke("RestartGame", 5f);
+        GameManager.Instance.AutoRestartGame();
     }
-
-    public void RestartGame()
-    {   
-        var BGMManager = GameObject.Find("BGMManager");
-        Destroy(BGMManager);
-        GameManager.Instance.RestartGame();
-    }
+    
     public void ShowLosePanel()
     {
         Debug.Log("Lose");
         losePanel.SetActive(true);
         FSMStateController.Instance.SetFSMCurrentState(EFSMStateType.Win);
-    }
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
     }
 }
