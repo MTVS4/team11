@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 public class SkillSystem : MonoBehaviour
@@ -15,12 +17,13 @@ public class SkillSystem : MonoBehaviour
     public MyPcUnitData myPcUnitData = new MyPcUnitData();
     public static int currentCharacterID;
     
-    public Volume effectVolume;
-    
+    public GameObject effectVolume;
+    private GameObject newEffectVolume;
     private Camera _maincam;
     private Vector3 _screancenter;
     private Vector3 _crossHairPosition;
-    
+    private Scene targetScene;
+
     public void Awake()
     {
         Instance = this;
@@ -29,6 +32,8 @@ public class SkillSystem : MonoBehaviour
     void Start()
     {
         _maincam = Camera.main;
+        targetScene = SceneManager.GetSceneByName("Shooting Scene");
+
     }
 
     void Update()
@@ -83,11 +88,18 @@ public class SkillSystem : MonoBehaviour
         _crossHairPosition = GameObject.Find("CrossHair").transform.position;
         _screancenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         Ray screenCenterToRay = _maincam.ScreenPointToRay(_screancenter);
-        
         if (Physics.Raycast(screenCenterToRay, out RaycastHit hit, 100f,LayerMask.GetMask("Ground", "Wall")))
         {
-            Volume newEffectVolume = Instantiate(effectVolume, hit.point, Quaternion.identity);
+            newEffectVolume = Instantiate(effectVolume, hit.point, Quaternion.identity);
+            SceneManager.MoveGameObjectToScene(newEffectVolume, targetScene);
+            Invoke("FadeOutAndDestroyEffectVolume", 5f);
         }
+    }
+
+    private void FadeOutAndDestroyEffectVolume()
+    {
+
+        StartCoroutine("FadeOutEffectVolume");
     }
 
     private void SageSkill2()
@@ -132,6 +144,23 @@ public class SkillSystem : MonoBehaviour
                 IsSkill1Available = true;
             }
             yield return new WaitForSeconds(1f);
+        }
+    }
+
+    public IEnumerator FadeOutEffectVolume()
+    {
+        float originalVolumeWeight = newEffectVolume.GetComponent<Volume>().weight;
+        for (float i = originalVolumeWeight; i >= 0; i -= Time.deltaTime)
+        {
+            if (i < 0.1f)
+            {
+                Destroy(newEffectVolume);
+                Debug.Log("destroy effectVolume");
+                yield break;
+            }
+            Debug.Log($"FadeOutEffectVolume : {i}");
+            newEffectVolume.GetComponent<Volume>().weight = i;
+            yield return new WaitForSeconds(Time.deltaTime);
         }
     }
     public IEnumerator Skill2CountDownCoroutine(float totalSeconds, TextMeshProUGUI sk2)
