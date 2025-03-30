@@ -23,6 +23,7 @@ public class SkillSystem : MonoBehaviour
     private Vector3 _screancenter;
     private Vector3 _crossHairPosition;
     private Scene targetScene;
+    public GameObject swordPrefab;
 
     public void Awake()
     {
@@ -33,6 +34,10 @@ public class SkillSystem : MonoBehaviour
     {
         _maincam = Camera.main;
         targetScene = SceneManager.GetSceneByName("Shooting Scene");
+        if (currentCharacterID == 0)
+        {
+            currentCharacterID = 1;
+        }
 
     }
 
@@ -55,6 +60,7 @@ public class SkillSystem : MonoBehaviour
                 else if (currentCharacterID == 2)
                 {
                     Debug.Log("(GameManager.Instance.UnitID == GameManager.CharacterID.Jett)");
+                    JettSkill1();
                 }
                 StartSkill1CountDown(15, skillName1);
             }
@@ -100,6 +106,25 @@ public class SkillSystem : MonoBehaviour
     {
 
         StartCoroutine("FadeOutEffectVolume");
+    }
+    private void JettSkill1()
+    {
+        _crossHairPosition = GameObject.Find("CrossHair").transform.position;
+        _screancenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+        Ray screenCenterToRay = _maincam.ScreenPointToRay(_screancenter);
+        float swordSpeed = 50f;
+        GameObject newSwordPrefab = Instantiate(swordPrefab, _crossHairPosition, Quaternion.identity);
+        SceneManager.MoveGameObjectToScene(newSwordPrefab, targetScene);
+        var newSwordPrefabRigidbody = newSwordPrefab.GetComponent<Rigidbody>();
+        
+        newSwordPrefabRigidbody.AddForce(screenCenterToRay.direction * swordSpeed, ForceMode.Impulse);
+
+        if (Physics.Raycast(screenCenterToRay, out RaycastHit hit, swordSpeed, LayerMask.GetMask("Enemy")))
+        {
+            
+            Destroy(hit.transform.gameObject);
+            ShootingUIManager.Instance.ShowWinPanel();
+        }
     }
 
     private void SageSkill2()

@@ -1277,7 +1277,7 @@ GameObject:
   - component: {fileID: 363177793}
   m_Layer: 7
   m_Name: Enemies
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7569,6 +7569,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6633946458811890722, guid: 724d41cc12cb4664f95e979886479d63, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 6827320763130079238, guid: 724d41cc12cb4664f95e979886479d63, type: 3}
       propertyPath: m_Layer
       value: 7
@@ -7756,6 +7760,10 @@ PrefabInstance:
       propertyPath: skillName2
       value: 
       objectReference: {fileID: 1314396517}
+    - target: {fileID: 4003111906891950602, guid: 811774edecab94291955ecba3700cf5c, type: 3}
+      propertyPath: swordPrefab
+      value: 
+      objectReference: {fileID: 5949735811853666977, guid: 03a4ae4afc9bde9409bd757d8744e37f, type: 3}
     - target: {fileID: 4003111906891950602, guid: 811774edecab94291955ecba3700cf5c, type: 3}
       propertyPath: effectVolume
       value: 
