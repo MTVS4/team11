@@ -36,6 +36,7 @@ public class FSMStateController
     
     public void StartGame()
     {
+        // 두 줄의 순서 바꾸니 캐릭터 선택이 다음씬으로 넘어갔음.
         SceneManager.UnloadSceneAsync("Lobby Scene");
         SceneManager.LoadScene("Shooting Scene",LoadSceneMode.Additive);
     }

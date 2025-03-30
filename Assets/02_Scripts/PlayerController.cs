@@ -8,13 +8,13 @@ public class PlayerController : MonoBehaviour
 {
     public bool ismoved;
     public bool isShootting = false;
-    
+    public static PlayerController Instance;
     [SerializeField] private Animator shooter;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject playerBody;
     [SerializeField] private Rigidbody myRigidbody;
-    private float MoveSpeed;
-    private float JumpForce;
+    public float MoveSpeed;
+    public float JumpForce;
     private Vector3 _lastPoint;
     public bool _isGrounded;
     public bool _isTouchingWall;
@@ -24,7 +24,12 @@ public class PlayerController : MonoBehaviour
     
     private void Awake()
     {
+        Instance = this;
         _isGrounded = true;
+    }
+
+    private void Start()
+    {
         MoveSpeed = GameManager.Instance.myPcUnit.MoveSpeed;
         JumpForce = GameManager.Instance.myPcUnit.JumpForce;
     }

@@ -1,29 +1,33 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class SkillSystem : MonoBehaviour
 {
-    public SkillSystem instance;
+    public static SkillSystem Instance;
     public TextMeshProUGUI currentHPText;
     public TextMeshProUGUI skillName1;
     public TextMeshProUGUI skillName2;
     private bool IsSkill1Available = true;
     private bool IsSkill2Available = true;
+    public MyPcUnitData myPcUnitData = new MyPcUnitData();
+    public static int currentCharacterID;
     
-
     public void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     void Start()
     {
-
     }
 
     void Update()
     {
+        Debug.Log($"캐릭터 ID: {GameManager.Instance.UnitID}"); //오류남 지워야함
+        Debug.Log($"캐릭터 ID: {currentCharacterID}");
+        
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Debug.Log("Input.GetKeyDown(KeyCode.Q) : Q is Pressed");
@@ -41,11 +45,39 @@ public class SkillSystem : MonoBehaviour
             
             if (IsSkill2Available == true)
             {
-                GameManager.Instance.myPcUnit.CurrentHp += 10;
-                currentHPText.text = GameManager.Instance.myPcUnit.CurrentHp.ToString();
+                if (currentCharacterID == 1)
+                {
+                    Debug.Log("(GameManager.Instance.UnitID == GameManager.CharacterID.Sage)");
+                    SageSkill2();
+                }
+                else if (currentCharacterID == 2)
+                {
+                    Debug.Log("(GameManager.Instance.UnitID == GameManager.CharacterID.Jett)");
+                    JettSkill2();
+                }
                 StartSkill2CountDown(30, skillName2);
+
             }
         }
+    }
+
+    private void SageSkill2()
+    {
+        myPcUnitData.CurrentHp += 10;
+        currentHPText.text = myPcUnitData.CurrentHp.ToString();
+    }
+
+    private void JettSkill2()
+    {
+        PlayerController.Instance.MoveSpeed = 8f;
+        PlayerController.Instance.JumpForce = 1000f;
+        Invoke("ResetCharacterStatus", 5f);
+    }
+
+    private void ResetCharacterStatus()
+    {
+        PlayerController.Instance.MoveSpeed = 4f;
+        PlayerController.Instance.JumpForce = 500f;
     }
 
     public void StartSkill1CountDown(float seconds, TextMeshProUGUI skill)

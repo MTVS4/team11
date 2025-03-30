@@ -5,14 +5,19 @@ using UnityEngine.Serialization;
 public class GameManager : MonoBehaviour
 {
     //싱글톤 전역 변수
-    public static GameManager Instance { get; set; }
-    public MyPcUnit myPcUnit = new MyPcUnit();
+    public static GameManager Instance;
+    public MyPcUnitData myPcUnit = new MyPcUnitData();
     public GameObject player1;
-    
     public Transform PlayerSpawnPoint { get; set; }
     public Transform NpcSpawnParent { get; set; }
     public Transform SkillObjectParent { get; set; }
     public Transform ItemObjectParent { get; set; }
+    public CharacterID UnitID;
+    public enum CharacterID
+    {
+        Sage = 1,
+        Jett = 2,
+    }
 
     private void Awake()
     {
@@ -24,6 +29,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         FSMStateController.Instance.Init();
+        myPcUnit = new MyPcUnitData();
     }
 
     private void OnDestroy()
@@ -46,6 +52,28 @@ public class GameManager : MonoBehaviour
     public void AutoRestartGame()
     {
         Invoke("RestartGame", 5f);
+    }
+
+    public void ChangeUnitIDtoJett()
+    {
+        if (myPcUnit == null) //필요없
+        {
+            myPcUnit = new MyPcUnitData();
+        }
+        UnitID = CharacterID.Jett;//오류남 지워야함
+        SkillSystem.currentCharacterID = 2;
+        Debug.Log(UnitID);
+    }
+
+    public void ChangeUnitIDtoSage()
+    {
+        if (myPcUnit == null)//필요없
+        {
+            myPcUnit = new MyPcUnitData();
+        }
+        UnitID = CharacterID.Sage;//오류남 지워야함
+        SkillSystem.currentCharacterID = 1;
+        Debug.Log(UnitID);
     }
 
     public void RestartGame()

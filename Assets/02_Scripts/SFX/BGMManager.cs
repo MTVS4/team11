@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BGMManager : MonoBehaviour
 {
-    public static BGMManager instance;
+    public static BGMManager Instance;
     [SerializeField] private AudioClip[] _BGMAudioClips;
     private AudioSource[] _BGMaudioSources;
     private int _totalNumberOfBGMs;
@@ -25,7 +25,7 @@ public class BGMManager : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(gameObject); // 어떤 씬으로 넘어가던 본 객체가 절대 부서지지 마시오.
-        instance = this;
+        Instance = this;
         _totalNumberOfBGMs = _BGMAudioClips.Length;
         _BGMaudioSources = new AudioSource[_totalNumberOfBGMs];
         
@@ -76,7 +76,6 @@ public class BGMManager : MonoBehaviour
                 currentBGM.volume = 0f;
                 Debug.Log("ChageVolumeCoroutine : Deactivate");
                 yield break;
-                Debug.Log("ERROR");
             }
             yield return new WaitForSeconds(Time.deltaTime);
         }
