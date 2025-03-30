@@ -13,18 +13,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject playerBody;
     [SerializeField] private Rigidbody myRigidbody;
-    private const float MoveSpeed = 4f;
-    private const float JumpForce = 500f;
+    private float MoveSpeed;
+    private float JumpForce;
     private Vector3 _lastPoint;
     public bool _isGrounded;
     public bool _isTouchingWall;
     private Vector3 _playerLastPosition;
     public int _groundLayerMask;
     public int _wallLayerMask;
-
+    
     private void Awake()
     {
         _isGrounded = true;
+        MoveSpeed = GameManager.Instance.myPcUnit.MoveSpeed;
+        JumpForce = GameManager.Instance.myPcUnit.JumpForce;
     }
 
     private void OnCollisionEnter(Collision collision)

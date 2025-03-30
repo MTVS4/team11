@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/01_Scenes/Lobby Scene.unity
     guid: 575a03e451c620942bc12b8140730899
   - enabled: 1
-    path: Assets/01_Scenes/Shotting Scene.unity
+    path: Assets/01_Scenes/Shooting Scene.unity
     guid: f023c3d5f6ec9ba4e99bf30e0d39f2b2
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

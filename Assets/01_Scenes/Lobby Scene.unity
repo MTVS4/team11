@@ -3456,7 +3456,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1865584402}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: SetFSMstateToProgress
+        m_MethodName: SetFSMstateToLobby
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

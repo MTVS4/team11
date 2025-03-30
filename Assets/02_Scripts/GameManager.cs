@@ -6,15 +6,13 @@ public class GameManager : MonoBehaviour
 {
     //싱글톤 전역 변수
     public static GameManager Instance { get; set; }
-    
+    public MyPcUnit myPcUnit = new MyPcUnit();
     public GameObject player1;
-    public int StageID { get; set;} = 1;
     
     public Transform PlayerSpawnPoint { get; set; }
     public Transform NpcSpawnParent { get; set; }
     public Transform SkillObjectParent { get; set; }
     public Transform ItemObjectParent { get; set; }
-    private PCSetting _myPCSetting;
 
     private void Awake()
     {
@@ -25,22 +23,17 @@ public class GameManager : MonoBehaviour
     
     private void Start()
     {
-        SpawnManager.Instance.Init();
         FSMStateController.Instance.Init();
-        GameDataManager.Instance.Init();
-        GameDataManager.Instance.SetRoundData(player1, PlayerSpawnPoint, SkillObjectParent, ItemObjectParent);
     }
 
     private void OnDestroy()
     {
-        SpawnManager.Instance.Clear();
         FSMStateController.Instance.Clear();
-        GameDataManager.Instance.Clear();
     }
 
-    public void SetFSMstateToProgress()
+    public void SetFSMstateToLobby()
     {
-        FSMStateController.Instance.SetFSMCurrentState(EFSMStateType.Progress);
+        FSMStateController.Instance.SetFSMCurrentState(EFSMStateType.Lobby);
         FSMStateController.Instance.StartGame();
     }
     

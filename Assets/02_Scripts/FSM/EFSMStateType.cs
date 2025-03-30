@@ -3,10 +3,8 @@ using UnityEngine;
 
 public enum EFSMStateType
 {
-    None,
-    Start,
     Lobby,
-    Progress,
+    Shooting,
     Win,
     Lose,
 }

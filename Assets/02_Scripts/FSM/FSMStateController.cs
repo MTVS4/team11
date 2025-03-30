@@ -37,7 +37,7 @@ public class FSMStateController
     public void StartGame()
     {
         SceneManager.UnloadSceneAsync("Lobby Scene");
-        SceneManager.LoadScene("Shotting Scene",LoadSceneMode.Additive);
+        SceneManager.LoadScene("Shooting Scene",LoadSceneMode.Additive);
     }
 
 }
