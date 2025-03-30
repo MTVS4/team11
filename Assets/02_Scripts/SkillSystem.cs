@@ -30,8 +30,6 @@ public class SkillSystem : MonoBehaviour
             
             if (IsSkill1Available == true)
             {
-                GameManager.Instance.myPcUnit.CurrentHp += 10;
-                currentHPText.text = GameManager.Instance.myPcUnit.CurrentHp.ToString();
                 StartSkill1CountDown(15, skillName1);
             }
 
@@ -40,8 +38,11 @@ public class SkillSystem : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             Debug.Log("Input.GetKeyDown(KeyCode.E) : E is Pressed");
+            
             if (IsSkill2Available == true)
             {
+                GameManager.Instance.myPcUnit.CurrentHp += 10;
+                currentHPText.text = GameManager.Instance.myPcUnit.CurrentHp.ToString();
                 StartSkill2CountDown(30, skillName2);
             }
         }
