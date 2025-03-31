@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     public Transform NpcSpawnParent { get; set; }
     public Transform SkillObjectParent { get; set; }
     public Transform ItemObjectParent { get; set; }
-    public CharacterID UnitID;
+    public static CharacterID UnitID;
     public enum CharacterID
     {
         Sage = 1,
@@ -61,8 +61,7 @@ public class GameManager : MonoBehaviour
             myPcUnit = new MyPcUnitData();
         }
         UnitID = CharacterID.Jett;//오류남 지워야함
-        SkillSystem.currentCharacterID = 2;
-        Debug.Log(UnitID);
+        Debug.Log($"ChangeUnitIDtoJett {UnitID}");
     }
 
     public void ChangeUnitIDtoSage()
@@ -72,8 +71,7 @@ public class GameManager : MonoBehaviour
             myPcUnit = new MyPcUnitData();
         }
         UnitID = CharacterID.Sage;//오류남 지워야함
-        SkillSystem.currentCharacterID = 1;
-        Debug.Log(UnitID);
+        Debug.Log($"ChangeUnitIDtoSage {UnitID}");
     }
 
     public void RestartGame()

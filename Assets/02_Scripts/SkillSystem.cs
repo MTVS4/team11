@@ -15,7 +15,6 @@ public class SkillSystem : MonoBehaviour
     private bool IsSkill1Available = true;
     private bool IsSkill2Available = true;
     public MyPcUnitData myPcUnitData = new MyPcUnitData();
-    public static int currentCharacterID;
     
     public GameObject effectVolume;
     private GameObject newEffectVolume;
@@ -34,17 +33,11 @@ public class SkillSystem : MonoBehaviour
     {
         _maincam = Camera.main;
         targetScene = SceneManager.GetSceneByName("Shooting Scene");
-        if (currentCharacterID == 0)
-        {
-            currentCharacterID = 1;
-        }
-
     }
 
     void Update()
     {
-        Debug.Log($"캐릭터 ID: {GameManager.Instance.UnitID}"); //오류남 지워야함
-        Debug.Log($"캐릭터 ID: {currentCharacterID}");
+        Debug.Log($"캐릭터 ID: {GameManager.UnitID}"); //오류남 지워야함
         
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -52,12 +45,12 @@ public class SkillSystem : MonoBehaviour
             
             if (IsSkill1Available == true)
             {                
-                if (currentCharacterID == 1)
+                if (GameManager.UnitID == GameManager.CharacterID.Sage)
                 {
                     Debug.Log("(GameManager.Instance.UnitID == GameManager.CharacterID.Sage)");
                     SageSkill1();
                 }
-                else if (currentCharacterID == 2)
+                else if (GameManager.UnitID == GameManager.CharacterID.Jett)
                 {
                     Debug.Log("(GameManager.Instance.UnitID == GameManager.CharacterID.Jett)");
                     JettSkill1();
@@ -73,12 +66,12 @@ public class SkillSystem : MonoBehaviour
             
             if (IsSkill2Available == true)
             {
-                if (currentCharacterID == 1)
+                if (GameManager.UnitID == GameManager.CharacterID.Sage)
                 {
                     Debug.Log("(GameManager.Instance.UnitID == GameManager.CharacterID.Sage)");
                     SageSkill2();
                 }
-                else if (currentCharacterID == 2)
+                else if (GameManager.UnitID == GameManager.CharacterID.Jett)
                 {
                     Debug.Log("(GameManager.Instance.UnitID == GameManager.CharacterID.Jett)");
                     JettSkill2();
