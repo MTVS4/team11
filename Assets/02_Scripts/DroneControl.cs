@@ -9,6 +9,7 @@ public class DroneControl : MonoBehaviour
     [SerializeField] GameObject currentDrone;
     [SerializeField] ParticleSystem damagedEffect;
     [SerializeField] AudioSource deadAudioSource;
+    [SerializeField] AudioSource damagedAudioSource;
     private void Awake()
     {
         isDemaged = false;
@@ -20,6 +21,7 @@ public class DroneControl : MonoBehaviour
         currentHP -= damage;
         Debug.Log($"currentHP : {currentHP}");
         damagedEffect.Play();
+        damagedAudioSource.Play();
     }
     
 
