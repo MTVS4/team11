@@ -11,7 +11,7 @@ public class GunControl : MonoBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject crossHair;
     [SerializeField] private AudioSource gunFireAudioSource;
-    
+    [SerializeField] private GameObject droneEnemy;
     private Camera _maincam;
     private Vector3 _screancenter;
     private Vector3 _crossHairPosition;
@@ -56,9 +56,9 @@ public class GunControl : MonoBehaviour
 
         if (Physics.Raycast(screenCenterToRay, out RaycastHit hit, bulletDistance, LayerMask.GetMask("Enemy")))
         {
-            
-            Destroy(hit.transform.gameObject);
-            ShootingUIManager.Instance.ShowWinPanel();
+            droneEnemy.GetComponent<DroneControl>().TakeDamage(50);
+            //Destroy(hit.transform.gameObject);
+            //ShootingUIManager.Instance.ShowWinPanel();
         }
     }
     
