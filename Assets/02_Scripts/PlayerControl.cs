@@ -4,11 +4,11 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PlayerController : MonoBehaviour
+public class PlayerControl : MonoBehaviour
 {
     public bool ismoved;
     public bool isShootting = false;
-    public static PlayerController Instance;
+    public static PlayerControl Instance;
     [SerializeField] private Animator shooter;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject playerBody;

@@ -15,7 +15,7 @@ public class SkillSystem : MonoBehaviour
     private bool IsSkill1Available = true;
     private bool IsSkill2Available = true;
     public MyPcUnitData myPcUnitData = new MyPcUnitData();
-    
+    [SerializeField] private GameObject jettSkill2;
     public GameObject effectVolume;
     private GameObject newEffectVolume;
     private Camera _maincam;
@@ -37,7 +37,11 @@ public class SkillSystem : MonoBehaviour
 
     void Update()
     {
-        Debug.Log($"캐릭터 ID: {GameManager.UnitID}"); //오류남 지워야함
+        Debug.Log($"캐릭터 ID: {GameManager.UnitID}");
+        if (jettSkill2.active)
+        {
+            jettSkill2.transform.position = _maincam.transform.position;
+        }
         
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -128,15 +132,17 @@ public class SkillSystem : MonoBehaviour
 
     private void JettSkill2()
     {
-        PlayerController.Instance.MoveSpeed = 8f;
-        PlayerController.Instance.JumpForce = 1000f;
+        PlayerControl.Instance.MoveSpeed = 8f;
+        PlayerControl.Instance.JumpForce = 1000f;
+        jettSkill2.SetActive(true);
         Invoke("ResetCharacterStatus", 5f);
     }
 
     private void ResetCharacterStatus()
     {
-        PlayerController.Instance.MoveSpeed = 4f;
-        PlayerController.Instance.JumpForce = 500f;
+        PlayerControl.Instance.MoveSpeed = 4f;
+        PlayerControl.Instance.JumpForce = 500f;
+        jettSkill2.SetActive(false);
     }
 
     public void StartSkill1CountDown(float seconds, TextMeshProUGUI skill)
