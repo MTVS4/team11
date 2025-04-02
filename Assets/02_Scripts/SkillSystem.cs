@@ -43,6 +43,11 @@ public class SkillSystem : MonoBehaviour
         {
             jettSkill2.transform.position = _maincam.transform.position;
         }
+
+        if (sageSkill2.active)
+        {
+            sageSkill2.transform.position = _maincam.transform.position;
+        }
         
         if (Input.GetKeyDown(KeyCode.Q))
         {
