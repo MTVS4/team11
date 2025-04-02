@@ -38,6 +38,9 @@ public class SkillSystem : MonoBehaviour
 
     void Update()
     {
+        if (myPcUnitData.CurrentHp <= 0)
+            ShootingUIManager.Instance.ShowLosePanel();
+        
         Debug.Log($"캐릭터 ID: {GameManager.UnitID}");
         if (jettSkill2.active)
         {

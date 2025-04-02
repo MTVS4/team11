@@ -7,11 +7,12 @@ using UnityEngine.Serialization;
 public class GunControl : MonoBehaviour
 {
     public float bulletDistance = 1000f;
-    
     [SerializeField] private GameObject bullet;
     [SerializeField] private GameObject crossHair;
     [SerializeField] private AudioSource gunFireAudioSource;
     [SerializeField] private GameObject droneEnemy;
+    [SerializeField] private GameObject attackTarget;
+    [SerializeField] private ParticleSystem attackEffect;
     private Camera _maincam;
     private Vector3 _screancenter;
     private Vector3 _crossHairPosition;
@@ -35,6 +36,10 @@ public class GunControl : MonoBehaviour
 
     private void Update()
     {
+        if (ShootingUIManager.Instance.isLose)
+        {
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             PlayGunFireSound();
@@ -56,10 +61,11 @@ public class GunControl : MonoBehaviour
 
         if (Physics.Raycast(screenCenterToRay, out RaycastHit hit, bulletDistance, LayerMask.GetMask("Enemy")))
         {
-            droneEnemy.GetComponent<DroneControl>().TakeDamage(50);
+            droneEnemy.GetComponent<DroneControl>().TakeDamage(10);
             //Destroy(hit.transform.gameObject);
             //ShootingUIManager.Instance.ShowWinPanel();
         }
+        
     }
     
 }

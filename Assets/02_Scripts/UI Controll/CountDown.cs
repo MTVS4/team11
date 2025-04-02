@@ -5,10 +5,15 @@ using UnityEngine;
 
 public class CountDown : MonoBehaviour
 {
+    //public static CountDown Instance;
     public TextMeshProUGUI roundTimeText;
     [SerializeField] private GameObject defeatPanel;
     //public ShootingUIManager shootingUIManager;
 
+    /*private void Awake()
+    {
+        Instance = this;
+    }*/
     public void Start()
     {
         startCountDown(40f);
