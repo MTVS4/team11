@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     //싱글톤 전역 변수
     public static GameManager Instance;
+    public GameObject quitPanelCanvas;
+    public GameObject quitPanel;
     public MyPcUnitData myPcUnit = new MyPcUnitData();
     public GameObject player1;
     public Transform PlayerSpawnPoint { get; set; }
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
         Instance = this;
         SceneManager.LoadSceneAsync("Lobby Scene", LoadSceneMode.Additive);
     }
+    
     
     private void Start()
     {
@@ -76,8 +79,6 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        if (SceneManager.GetActiveScene().name == "Lobby Scene")
-            return;
         var BGMManager = GameObject.Find("BGMManager");
         Destroy(BGMManager);
         SceneManager.LoadScene("Lobby Scene");
@@ -86,5 +87,10 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            quitPanelCanvas.SetActive(true);
+            quitPanel.SetActive(true);
+        }
     }
 }
