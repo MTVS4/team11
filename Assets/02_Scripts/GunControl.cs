@@ -23,6 +23,8 @@ public class GunControl : MonoBehaviour
     {
         _maincam = Camera.main;
     }
+    
+    
 
     private void Start()
     {
@@ -36,7 +38,7 @@ public class GunControl : MonoBehaviour
 
     private void Update()
     {
-        if (ShootingUIManager.Instance.isLose)
+        if (ShootingUIManager.Instance.WinorLoseState == ShootingUIManager.WinorLose.lose)
         {
             return;
         }
@@ -53,7 +55,7 @@ public class GunControl : MonoBehaviour
         _screancenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         Ray screenCenterToRay = _maincam.ScreenPointToRay(_screancenter);
         
-        GameObject newBullet = Instantiate(bullet, _crossHairPosition, quaternion.identity);
+        GameObject newBullet = Instantiate(bullet, _crossHairPosition, _maincam.transform.rotation);
         SceneManager.MoveGameObjectToScene(newBullet, targetScene);
         var bulletRigidbody = newBullet.GetComponent<Rigidbody>();
         
@@ -61,9 +63,7 @@ public class GunControl : MonoBehaviour
 
         if (Physics.Raycast(screenCenterToRay, out RaycastHit hit, bulletDistance, LayerMask.GetMask("Enemy")))
         {
-            droneEnemy.GetComponent<DroneControl>().TakeDamage(10);
-            //Destroy(hit.transform.gameObject);
-            //ShootingUIManager.Instance.ShowWinPanel();
+            droneEnemy.GetComponent<DroneControl>().TakeDamage(SkillSystem.Instance.playerGunPower);
         }
         
     }

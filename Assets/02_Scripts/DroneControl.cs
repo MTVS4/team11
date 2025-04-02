@@ -5,9 +5,10 @@ using UnityEngine;
 public class DroneControl : MonoBehaviour
 {
     public bool isDemaged;
-    private int currentHP;
-    private int newCurrentHP;
+    private int droneCurrentHP;
+    private int playerNewCurrentHp;
     private int originalCurrentHP;
+    private int droneAttackPower = 3;
     [SerializeField] GameObject crosshair;
     [SerializeField] GameObject currentDrone;
     [SerializeField] ParticleSystem damagedEffect;
@@ -18,19 +19,28 @@ public class DroneControl : MonoBehaviour
     private void Awake()
     {
         isDemaged = false;
-        currentHP = 100;
+        droneCurrentHP = 100;
     }
 
     public void TakeDamage(int damage)
     {
-        currentHP -= damage;
-        Debug.Log($"currentHP : {currentHP}");
+        droneCurrentHP -= damage;
+        Debug.Log($"currentHP : {droneCurrentHP}");
         damagedEffect.Play();
         damagedAudioSource.Play();
-        if (currentHP >= 0)
+        if (droneCurrentHP > 0)
         {
             DroneAttack();
             Invoke("StopDroneAttack", 5f);
+        }
+        else
+        {
+            if (ShootingUIManager.Instance.WinorLoseState != ShootingUIManager.WinorLose.lose)
+            {
+                ShootingUIManager.Instance.WinorLoseState = ShootingUIManager.WinorLose.win;
+                ShootingUIManager.Instance.ShowWinPanel();
+                StopAllCoroutines();
+            }
         }
     }
 
@@ -43,16 +53,27 @@ public class DroneControl : MonoBehaviour
     }
     IEnumerator HPDownCoroutine(int HP)
     {
-        newCurrentHP = HP;
+        playerNewCurrentHp = HP;
         for (int i = 0; i < 5; i++)
         {
             Debug.Log(i);
-            newCurrentHP -= 5;
-            SkillSystem.Instance.myPcUnitData.CurrentHp = newCurrentHP;
+            playerNewCurrentHp -= droneAttackPower;
+            SkillSystem.Instance.myPcUnitData.CurrentHp = playerNewCurrentHp;
             SkillSystem.Instance.currentHPText.text = SkillSystem.Instance.myPcUnitData.CurrentHp.ToString();
+            if (playerNewCurrentHp <= 0)
+            {
+                Debug.Log("Player die");
+                SkillSystem.Instance.currentHPText.text = "DIE";
+                if (ShootingUIManager.Instance.WinorLoseState != ShootingUIManager.WinorLose.win)
+                {
+                    ShootingUIManager.Instance.WinorLoseState = ShootingUIManager.WinorLose.lose;
+                    ShootingUIManager.Instance.ShowLosePanel();
+                    StopAllCoroutines();
+                    break;
+                }
+            }
             yield return new WaitForSeconds(1f);
         }
-        yield break;
     }
 
     private void StopDroneAttack()
@@ -63,14 +84,17 @@ public class DroneControl : MonoBehaviour
 
     void Update()
     { 
-        
+        /*
         if (currentHP <= 0)
         {
+            if (ShootingUIManager.Instance.WinorLoseState == ShootingUIManager.WinorLose.win)
+                return;
             droneAttackEffect.gameObject.SetActive(false);
+            StopCoroutine("HPDownCoroutine");
             Destroy(currentDrone);
             deadAudioSource.Play();
+            ShootingUIManager.Instance.WinorLoseState = ShootingUIManager.WinorLose.win;
             ShootingUIManager.Instance.ShowWinPanel();
-            
-        }
+        }*/
     }
 }

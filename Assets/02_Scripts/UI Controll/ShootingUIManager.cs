@@ -8,15 +8,22 @@ public class ShootingUIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI HPText;
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
-    public bool isLose = false;
+    public WinorLose WinorLoseState;
+    public enum WinorLose
+    {
+        notsetted = 0,
+        win = 1,
+        lose = 2,
+    }
     private void Awake()
     {
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        WinorLoseState = WinorLose.notsetted;
     }
     public void ShowWinPanel()
     {
-        if (isLose)
+        if (WinorLoseState != WinorLose.win)
             return;
         Debug.Log("Win");
         winPanel.SetActive(true);
@@ -25,9 +32,14 @@ public class ShootingUIManager : MonoBehaviour
     
     public void ShowLosePanel()
     {
+        if (WinorLoseState != WinorLose.lose)
+            return;
         Debug.Log("Lose");
         losePanel.SetActive(true);
-        //FSMStateController.Instance.SetFSMCurrentState(EFSMStateType.Win);
         GameManager.Instance.AutoRestartGame();
+    }
+
+    private void Update()
+    {
     }
 }

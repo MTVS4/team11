@@ -8428,6 +8428,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4691348641942517617, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
+      propertyPath: bullet
+      value: 
+      objectReference: {fileID: 536616970602699425, guid: 546e861124e3b60458122ecd20b9cfb4, type: 3}
+    - target: {fileID: 4691348641942517617, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
       propertyPath: droneEnemy
       value: 
       objectReference: {fileID: 1279205243602374333}

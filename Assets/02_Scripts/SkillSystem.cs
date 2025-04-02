@@ -24,6 +24,7 @@ public class SkillSystem : MonoBehaviour
     private Vector3 _crossHairPosition;
     private Scene targetScene;
     public GameObject swordPrefab;
+    public int playerGunPower = 10;
 
     public void Awake()
     {
@@ -38,9 +39,6 @@ public class SkillSystem : MonoBehaviour
 
     void Update()
     {
-        if (myPcUnitData.CurrentHp <= 0)
-            ShootingUIManager.Instance.ShowLosePanel();
-        
         Debug.Log($"캐릭터 ID: {GameManager.UnitID}");
         if (jettSkill2.active)
         {
@@ -115,22 +113,14 @@ public class SkillSystem : MonoBehaviour
     }
     private void JettSkill1()
     {
-        _crossHairPosition = GameObject.Find("CrossHair").transform.position;
-        _screancenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
-        Ray screenCenterToRay = _maincam.ScreenPointToRay(_screancenter);
-        float swordSpeed = 50f;
-        GameObject newSwordPrefab = Instantiate(swordPrefab, _crossHairPosition, Quaternion.identity);
-        SceneManager.MoveGameObjectToScene(newSwordPrefab, targetScene);
-        var newSwordPrefabRigidbody = newSwordPrefab.GetComponent<Rigidbody>();
-        
-        newSwordPrefabRigidbody.AddForce(screenCenterToRay.direction * swordSpeed, ForceMode.Impulse);
+        playerGunPower += 10;
+        Invoke("ResetPlayerGunPower", 5f);
+    }
 
-        if (Physics.Raycast(screenCenterToRay, out RaycastHit hit, swordSpeed, LayerMask.GetMask("Enemy")))
-        {
-            
-            Destroy(hit.transform.gameObject);
-            ShootingUIManager.Instance.ShowWinPanel();
-        }
+    private void ResetPlayerGunPower()
+    {
+        playerGunPower -= 10;
+
     }
 
     private void SageSkill2()

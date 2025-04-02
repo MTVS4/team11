@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
+        if (SceneManager.GetActiveScene().name == "Lobby Scene")
+            return;
         var BGMManager = GameObject.Find("BGMManager");
         Destroy(BGMManager);
         SceneManager.LoadScene("Lobby Scene");
