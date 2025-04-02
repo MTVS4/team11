@@ -16,6 +16,7 @@ public class SkillSystem : MonoBehaviour
     private bool IsSkill2Available = true;
     public MyPcUnitData myPcUnitData = new MyPcUnitData();
     [SerializeField] private GameObject jettSkill2;
+    [SerializeField] private GameObject sageSkill2;
     public GameObject effectVolume;
     private GameObject newEffectVolume;
     private Camera _maincam;
@@ -126,8 +127,17 @@ public class SkillSystem : MonoBehaviour
 
     private void SageSkill2()
     {
-        myPcUnitData.CurrentHp += 10;
+        sageSkill2.SetActive(true);
+        myPcUnitData.CurrentHp += 5;
         currentHPText.text = myPcUnitData.CurrentHp.ToString();
+        Invoke("EndSageSkill2Effect", 5f);
+    }
+
+    private void EndSageSkill2Effect()
+    {
+        myPcUnitData.CurrentHp += 5;
+        currentHPText.text = myPcUnitData.CurrentHp.ToString();
+        sageSkill2.SetActive(false);
     }
 
     private void JettSkill2()

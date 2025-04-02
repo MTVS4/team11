@@ -6,6 +6,8 @@ using UnityEngine;
 public class CountDown : MonoBehaviour
 {
     public TextMeshProUGUI roundTimeText;
+    [SerializeField] private GameObject defeatPanel;
+    //public ShootingUIManager shootingUIManager;
 
     public void Start()
     {
@@ -27,6 +29,9 @@ public class CountDown : MonoBehaviour
             if (value == 0)
             {
                 roundTimeText.text = "Time Over";
+                ShootingUIManager.Instance.isLose = true;
+                ShootingUIManager.Instance.ShowLosePanel();
+                
             }
             yield return new WaitForSeconds(1f);
         }
