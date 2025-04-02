@@ -34,9 +34,11 @@ public class CountDown : MonoBehaviour
             if (value == 0)
             {
                 roundTimeText.text = "Time Over";
-                ShootingUIManager.Instance.WinorLoseState = ShootingUIManager.WinorLose.win;
-                if (ShootingUIManager.Instance.WinorLoseState != ShootingUIManager.WinorLose.notsetted)
+                if (ShootingUIManager.Instance.WinorLoseState != ShootingUIManager.WinorLose.win)
+                {
                     ShootingUIManager.Instance.WinorLoseState = ShootingUIManager.WinorLose.lose;
+                    ShootingUIManager.Instance.ShowLosePanel();
+                }
             }
             yield return new WaitForSeconds(1f);
         }
