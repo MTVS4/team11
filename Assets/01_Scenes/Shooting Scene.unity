@@ -7548,7 +7548,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 970a0ae5296891a4393bbfc7c4419e60, type: 2}
+  - {fileID: 2100000, guid: 0744bcab18e19e444b1498ebfd1b47b1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8771,6 +8771,18 @@ PrefabInstance:
     - target: {fileID: 5834325129290372407, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7289595172859071171, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
+      propertyPath: Lens.FieldOfView
+      value: 57
+      objectReference: {fileID: 0}
+    - target: {fileID: 7289595172859071171, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
+      propertyPath: Lens.ModeOverride
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7975614550533267995, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
+      propertyPath: field of view
+      value: 57
       objectReference: {fileID: 0}
     - target: {fileID: 7975614550533267995, guid: 740b7b84f858c7944bcf59af60f1045f, type: 3}
       propertyPath: m_CullingMask.m_Bits
