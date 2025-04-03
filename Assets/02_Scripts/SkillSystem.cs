@@ -9,6 +9,7 @@ using UnityEngine.Serialization;
 public class SkillSystem : MonoBehaviour
 {
     public static SkillSystem Instance;
+    public GameObject droneEnemy;
     public TextMeshProUGUI currentHPText;
     public TextMeshProUGUI skillName1;
     public TextMeshProUGUI skillName2;
@@ -98,10 +99,12 @@ public class SkillSystem : MonoBehaviour
         _crossHairPosition = GameObject.Find("CrossHair").transform.position;
         _screancenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
         Ray screenCenterToRay = _maincam.ScreenPointToRay(_screancenter);
-        if (Physics.Raycast(screenCenterToRay, out RaycastHit hit, 100f,LayerMask.GetMask("Ground", "Wall")))
+        if (Physics.Raycast(screenCenterToRay, out RaycastHit hit, 100f,LayerMask.GetMask("Ground", "Wall", "Enemy")))
         {
             newEffectVolume = Instantiate(effectVolume, hit.point, Quaternion.identity);
             SceneManager.MoveGameObjectToScene(newEffectVolume, targetScene);
+            droneEnemy.GetComponent<DroneControl>().StopCoroutine("HPDownCoroutine");
+            droneEnemy.GetComponent<DroneControl>().StopDroneAttack();
             Invoke("FadeOutAndDestroyEffectVolume", 5f);
         }
     }

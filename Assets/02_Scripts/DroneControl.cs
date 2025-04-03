@@ -76,7 +76,7 @@ public class DroneControl : MonoBehaviour
         }
     }
 
-    private void StopDroneAttack()
+    public void StopDroneAttack()
     {
         droneAttackEffect.Stop();
     }

@@ -8669,6 +8669,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4003111906891950602, guid: 811774edecab94291955ecba3700cf5c, type: 3}
+      propertyPath: droneEnemy
+      value: 
+      objectReference: {fileID: 1279205243602374333}
+    - target: {fileID: 4003111906891950602, guid: 811774edecab94291955ecba3700cf5c, type: 3}
       propertyPath: jettSkill2
       value: 
       objectReference: {fileID: 6312203502930860836}
