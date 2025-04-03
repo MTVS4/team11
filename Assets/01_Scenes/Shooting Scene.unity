@@ -2892,11 +2892,11 @@ MonoBehaviour:
   minRendererVolumeSize: 0.1
   objectLayerMask:
     serializedVersion: 2
-    m_Bits: 1911
+    m_Bits: 4294967295
   lowestSubdivLevelOverride: 0
   highestSubdivLevelOverride: 7
   overridesSubdivLevels: 1
-  mightNeedRebaking: 1
+  mightNeedRebaking: 0
   cachedTransform:
     e00: 1
     e01: 0
@@ -6223,6 +6223,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1450995257}
     m_Modifications:
+    - target: {fileID: 4297989763024064225, guid: de40e9796874f4268b88ceb0854e3855, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4628549556958199752, guid: de40e9796874f4268b88ceb0854e3855, type: 3}
       propertyPath: m_Name
       value: Defeat Screen
@@ -8338,6 +8342,10 @@ PrefabInstance:
     - target: {fileID: 7260510406073648807, guid: c12e698b665eae54d8f3ef2f1314a0c3, type: 3}
       propertyPath: m_Name
       value: Drone Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260510406073648807, guid: c12e698b665eae54d8f3ef2f1314a0c3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260510406073648807, guid: c12e698b665eae54d8f3ef2f1314a0c3, type: 3}
       propertyPath: m_StaticEditorFlags
