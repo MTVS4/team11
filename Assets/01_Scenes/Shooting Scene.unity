@@ -2896,25 +2896,25 @@ MonoBehaviour:
   lowestSubdivLevelOverride: 0
   highestSubdivLevelOverride: 7
   overridesSubdivLevels: 1
-  mightNeedRebaking: 1
+  mightNeedRebaking: 0
   cachedTransform:
     e00: 1
     e01: 0
     e02: 0
-    e03: -0
+    e03: -0.5464425
     e10: 0
     e11: 1
     e12: 0
-    e13: -0.68
+    e13: -4.3314557
     e20: 0
     e21: 0
     e22: 1
-    e23: -0
+    e23: -0.5496826
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  cachedHashCode: -509902434
+  cachedHashCode: 2140075316
   fillEmptySpaces: 0
   version: 2
   globalVolume: 0
@@ -3579,7 +3579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83d2f7ae04ab6f4f99b0d85377be998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedBakingSet: {fileID: 0}
+  serializedBakingSet: {fileID: 11400000, guid: 212d4e61b0f17d741aa6b88dda568905, type: 2}
   sceneGUID: f023c3d5f6ec9ba4e99bf30e0d39f2b2
   obsoleteAsset: {fileID: 0}
   obsoleteCellSharedDataAsset: {fileID: 0}
@@ -8175,9 +8175,25 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2060893263150954946, guid: c12e698b665eae54d8f3ef2f1314a0c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2482494346521952397, guid: c12e698b665eae54d8f3ef2f1314a0c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2692418266369838473, guid: c12e698b665eae54d8f3ef2f1314a0c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 4653944489195371527, guid: c12e698b665eae54d8f3ef2f1314a0c3, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5555772738523724679, guid: c12e698b665eae54d8f3ef2f1314a0c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 6743634425081769053, guid: c12e698b665eae54d8f3ef2f1314a0c3, type: 3}
       propertyPath: playOnAwake
@@ -8186,6 +8202,14 @@ PrefabInstance:
     - target: {fileID: 7260510406073648807, guid: c12e698b665eae54d8f3ef2f1314a0c3, type: 3}
       propertyPath: m_Name
       value: Drone Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 7260510406073648807, guid: c12e698b665eae54d8f3ef2f1314a0c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7882567126251942702, guid: c12e698b665eae54d8f3ef2f1314a0c3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
