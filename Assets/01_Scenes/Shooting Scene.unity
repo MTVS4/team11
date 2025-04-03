@@ -2892,11 +2892,11 @@ MonoBehaviour:
   minRendererVolumeSize: 0.1
   objectLayerMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1911
   lowestSubdivLevelOverride: 0
   highestSubdivLevelOverride: 7
   overridesSubdivLevels: 1
-  mightNeedRebaking: 0
+  mightNeedRebaking: 1
   cachedTransform:
     e00: 1
     e01: 0
@@ -3579,7 +3579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83d2f7ae04ab6f4f99b0d85377be998, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializedBakingSet: {fileID: 11400000, guid: 212d4e61b0f17d741aa6b88dda568905, type: 2}
+  serializedBakingSet: {fileID: 0}
   sceneGUID: f023c3d5f6ec9ba4e99bf30e0d39f2b2
   obsoleteAsset: {fileID: 0}
   obsoleteCellSharedDataAsset: {fileID: 0}
