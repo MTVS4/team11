@@ -9,23 +9,23 @@ LightingSettings:
   m_Name: New Lighting Settings
   serializedVersion: 9
   m_EnableBakedLightmaps: 1
-  m_EnableRealtimeLightmaps: 1
+  m_EnableRealtimeLightmaps: 0
   m_RealtimeEnvironmentLighting: 1
   m_BounceScale: 1
-  m_AlbedoBoost: 6
-  m_IndirectOutputScale: 2.081
+  m_AlbedoBoost: 10
+  m_IndirectOutputScale: 5
   m_UsingShadowmask: 1
   m_BakeBackend: 2
   m_LightmapMaxSize: 4096
   m_LightmapSizeFixed: 0
-  m_UseMipmapLimits: 1
+  m_UseMipmapLimits: 0
   m_BakeResolution: 100
   m_Padding: 20
   m_LightmapCompression: 3
   m_AO: 1
   m_AOMaxDistance: 20
-  m_CompAOExponent: 8
-  m_CompAOExponentDirect: 6
+  m_CompAOExponent: 10
+  m_CompAOExponentDirect: 10
   m_ExtractAO: 0
   m_MixedBakeMode: 2
   m_LightmapsBakeMode: 1
@@ -39,11 +39,11 @@ LightingSettings:
   m_ForceUpdates: 0
   m_PVRCulling: 1
   m_PVRSampling: 1
-  m_PVRDirectSampleCount: 64
-  m_PVRSampleCount: 1024
-  m_PVREnvironmentSampleCount: 512
+  m_PVRDirectSampleCount: 1024
+  m_PVRSampleCount: 8192
+  m_PVREnvironmentSampleCount: 2048
   m_PVREnvironmentReferencePointCount: 2048
-  m_LightProbeSampleCountMultiplier: 50
+  m_LightProbeSampleCountMultiplier: 100
   m_PVRBounces: 20
   m_PVRMinBounces: 2
   m_PVREnvironmentImportanceSampling: 1
